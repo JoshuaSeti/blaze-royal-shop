@@ -36,6 +36,7 @@ const HorizontalProductList = ({ title, products, viewAllLink }: HorizontalProdu
             {products.map((product) => (
               <div key={product.id} className="w-80 flex-shrink-0">
                 <ProductCard
+                  id={product.id}
                   image={product.image}
                   name={product.name}
                   price={product.price}

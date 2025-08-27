@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Heart, Star } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 interface ProductCardProps {
+  id?: number;
   image: string;
   name: string;
   price: number;
@@ -11,29 +14,38 @@ interface ProductCardProps {
   reviews: number;
 }
 
-const ProductCard = ({ image, name, price, originalPrice, rating, reviews }: ProductCardProps) => {
+const ProductCard = ({ id = 1, image, name, price, originalPrice, rating, reviews }: ProductCardProps) => {
+  const [isFavorite, setIsFavorite] = useState(false);
+  
   return (
     <Card className="group hover:shadow-lg transition-all duration-300 border-border">
       <CardContent className="p-0">
         {/* Image */}
-        <div className="relative overflow-hidden rounded-t-lg">
-          <img 
-            src={image} 
-            alt={name}
-            className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
-          />
+        <div className="relative">
+          <Link to={`/product/${id}`}>
+            <div className="overflow-hidden rounded-t-lg">
+              <img 
+                src={image} 
+                alt={name}
+                className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+              {originalPrice && (
+                <div className="absolute top-3 left-3 bg-primary text-primary-foreground px-2 py-1 rounded text-sm font-medium">
+                  Sale
+                </div>
+              )}
+            </div>
+          </Link>
           <Button 
             variant="ghost" 
             size="icon" 
-            className="absolute top-3 right-3 bg-card/80 hover:bg-card"
+            className={`absolute top-3 right-3 ${
+              isFavorite ? 'text-red-500' : 'text-muted-foreground'
+            } hover:text-red-500 bg-background/80 backdrop-blur-sm`}
+            onClick={() => setIsFavorite(!isFavorite)}
           >
-            <Heart className="h-4 w-4" />
+            <Heart className={`h-4 w-4 ${isFavorite ? 'fill-current' : ''}`} />
           </Button>
-          {originalPrice && (
-            <div className="absolute top-3 left-3 bg-primary text-primary-foreground px-2 py-1 rounded text-sm font-medium">
-              Sale
-            </div>
-          )}
         </div>
 
         {/* Content */}
