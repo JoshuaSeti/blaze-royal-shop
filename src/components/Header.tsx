@@ -1,17 +1,26 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ShoppingCart, Search, User } from "lucide-react";
+import { ShoppingCart, Search, User, Menu } from "lucide-react";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 
 const Header = () => {
   return (
     <header className="border-b bg-card shadow-sm">
-      <div className="container mx-auto px-4 py-4">
+      {/* Main header bar */}
+      <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
-          {/* Logo and Search */}
-          <div className="flex items-center space-x-6 flex-1">
+          {/* Mobile: Hamburger + Logo | Desktop: Logo + Search */}
+          <div className="flex items-center space-x-3 flex-1">
+            {/* Mobile hamburger menu */}
+            <div className="md:hidden">
+              <SidebarTrigger />
+            </div>
+            
             <div className="text-2xl font-bold text-primary">ShopHub</div>
-            <div className="flex-1 max-w-2xl">
-              <div className="relative">
+            
+            {/* Desktop search */}
+            <div className="hidden md:flex flex-1 max-w-2xl ml-6">
+              <div className="relative w-full">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                 <Input 
                   placeholder="Search for products..." 
@@ -33,6 +42,19 @@ const Header = () => {
                 3
               </span>
             </Button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile search bar */}
+      <div className="md:hidden border-t bg-muted/30">
+        <div className="container mx-auto px-4 py-3">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+            <Input 
+              placeholder="Search for products..." 
+              className="pl-10 bg-background"
+            />
           </div>
         </div>
       </div>

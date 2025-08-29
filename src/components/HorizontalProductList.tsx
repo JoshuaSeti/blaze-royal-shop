@@ -31,10 +31,10 @@ const HorizontalProductList = ({ title, products, viewAllLink }: HorizontalProdu
           )}
         </div>
         
-        <div className="overflow-x-auto">
-          <div className="flex space-x-6 pb-4" style={{ width: 'max-content' }}>
+        <div className="overflow-x-auto scrollbar-hide">
+          <div className="flex space-x-4 pb-4 px-4 min-w-max">
             {products.map((product) => (
-              <div key={product.id} className="w-80 flex-shrink-0">
+              <div key={product.id} className="w-72 sm:w-80 flex-shrink-0">
                 <ProductCard
                   id={product.id}
                   image={product.image}
