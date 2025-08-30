@@ -23,22 +23,22 @@ const CategorySelector = () => {
   ];
 
   return (
-    <section className="py-8 bg-background">
+    <section className="py-16 bg-gradient-to-b from-accent/30 to-background">
       <div className="container mx-auto px-4">
-        <h2 className="text-2xl font-bold text-foreground mb-6 text-center">
+        <h2 className="text-3xl font-bold text-foreground mb-12 text-center">
           Shop by Category
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6">
           {categories.map((category) => {
             const IconComponent = category.icon;
             return (
               <Button
                 key={category.id}
                 variant="outline"
-                className="h-24 flex-col space-y-2 hover:bg-accent border-border"
+                className="glass-card h-32 flex-col space-y-3 hover:bg-primary/5 hover:border-primary/30 hover:scale-105 transition-all duration-300 group border-border/50"
               >
-                <IconComponent className={`h-8 w-8 ${category.color}`} />
-                <span className="text-sm font-medium">{category.name}</span>
+                <IconComponent className={`h-10 w-10 ${category.color} group-hover:scale-110 transition-transform duration-300`} />
+                <span className="text-sm font-semibold group-hover:text-primary transition-colors">{category.name}</span>
               </Button>
             );
           })}
