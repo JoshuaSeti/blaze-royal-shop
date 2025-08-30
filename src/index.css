@@ -190,20 +190,18 @@ All colors MUST be HSL.
     box-shadow: var(--shadow-glow);
   }
 
-  /* Modern Scrollbars */
+  /* Mobile-First Responsive Utilities */
+  .mobile-scroll {
+    @apply overflow-x-auto scrollbar-hidden;
+  }
+  
   .scrollbar-hidden::-webkit-scrollbar {
     @apply hidden;
   }
-  
-  .scrollbar-thin::-webkit-scrollbar {
-    @apply w-2 h-2;
-  }
-  
-  .scrollbar-thin::-webkit-scrollbar-track {
-    @apply bg-muted rounded-full;
-  }
-  
-  .scrollbar-thin::-webkit-scrollbar-thumb {
-    @apply bg-muted-foreground/20 rounded-full hover:bg-muted-foreground/40;
+
+  /* Touch-friendly scroll indicators */
+  .mobile-scroll::after {
+    @apply absolute top-0 right-0 h-full w-8 bg-gradient-to-l from-background/80 to-transparent pointer-events-none;
+    content: '';
   }
 }

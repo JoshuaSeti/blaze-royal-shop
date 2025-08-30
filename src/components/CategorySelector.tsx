@@ -28,7 +28,9 @@ const CategorySelector = () => {
         <h2 className="text-3xl font-bold text-foreground mb-12 text-center">
           Shop by Category
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6">
+        
+        {/* Desktop Grid */}
+        <div className="hidden md:grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6">
           {categories.map((category) => {
             const IconComponent = category.icon;
             return (
@@ -42,6 +44,27 @@ const CategorySelector = () => {
               </Button>
             );
           })}
+        </div>
+
+        {/* Mobile Horizontal Scroll */}
+        <div className="md:hidden">
+          <div className="overflow-x-auto scrollbar-hidden">
+            <div className="flex space-x-4 pb-4 px-4" style={{ width: 'max-content' }}>
+              {categories.map((category) => {
+                const IconComponent = category.icon;
+                return (
+                  <Button
+                    key={category.id}
+                    variant="outline"
+                    className="glass-card h-24 w-20 flex-col space-y-2 hover:bg-primary/5 hover:border-primary/30 hover:scale-105 transition-all duration-300 group border-border/50 flex-shrink-0"
+                  >
+                    <IconComponent className={`h-6 w-6 ${category.color} group-hover:scale-110 transition-transform duration-300`} />
+                    <span className="text-xs font-semibold group-hover:text-primary transition-colors leading-tight text-center">{category.name}</span>
+                  </Button>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </section>
