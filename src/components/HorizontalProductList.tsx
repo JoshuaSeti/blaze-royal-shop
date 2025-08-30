@@ -20,21 +20,21 @@ interface HorizontalProductListProps {
 
 const HorizontalProductList = ({ title, products, viewAllLink }: HorizontalProductListProps) => {
   return (
-    <section className="py-6 md:py-12 bg-background">
+    <section className="py-12 bg-background">
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center mb-4 md:mb-8">
-          <h2 className="text-xl md:text-3xl font-bold text-foreground">{title}</h2>
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-3xl font-bold text-foreground">{title}</h2>
           {viewAllLink && (
-            <Button variant="ghost" size="sm" className="text-primary hover:text-primary-hover text-sm">
-              View All <ChevronRight className="ml-1 h-3 w-3 md:h-4 md:w-4" />
+            <Button variant="ghost" className="text-primary hover:text-primary-hover">
+              View All <ChevronRight className="ml-1 h-4 w-4" />
             </Button>
           )}
         </div>
         
-        <div className="overflow-x-auto scrollbar-hide">
-          <div className="flex space-x-3 pb-4 px-4 min-w-max">
+        <div className="overflow-x-auto">
+          <div className="flex space-x-6 pb-4" style={{ width: 'max-content' }}>
             {products.map((product) => (
-              <div key={product.id} className="w-64 sm:w-72 md:w-80 flex-shrink-0">
+              <div key={product.id} className="w-80 flex-shrink-0">
                 <ProductCard
                   id={product.id}
                   image={product.image}
