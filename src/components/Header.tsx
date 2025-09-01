@@ -1,8 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ShoppingCart, Search, User } from "lucide-react";
+import { ShoppingCart, Search, User, LogOut } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Header = () => {
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
   return (
     <header className="glass-card border-b-0 shadow-sm sticky top-0 z-50">
       <div className="container mx-auto px-4 py-4">
@@ -25,10 +36,35 @@ const Header = () => {
 
           {/* Account and Cart */}
           <div className="flex items-center space-x-2 md:space-x-3">
-            <Button variant="ghost" className="hidden sm:flex items-center space-x-2 hover:bg-accent rounded-full px-3 md:px-4 py-2">
-              <User className="h-4 md:h-5 w-4 md:w-5" />
-              <span className="hidden md:inline font-medium">Account</span>
-            </Button>
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="hidden sm:flex items-center space-x-2 hover:bg-accent rounded-full px-3 md:px-4 py-2">
+                    <User className="h-4 md:h-5 w-4 md:w-5" />
+                    <span className="hidden md:inline font-medium">Account</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={() => navigate('/vendor')}>
+                    Vendor Dashboard
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={signOut}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Button 
+                onClick={() => navigate('/auth')}
+                className="hidden sm:flex items-center space-x-2 hover:bg-accent rounded-full px-3 md:px-4 py-2"
+                variant="ghost"
+              >
+                <User className="h-4 md:h-5 w-4 md:w-5" />
+                <span className="hidden md:inline font-medium">Sign In</span>
+              </Button>
+            )}
+            
             <Button variant="ghost" size="icon" className="relative hover:bg-accent rounded-full">
               <ShoppingCart className="h-5 w-5" />
               <span className="absolute -top-2 -right-2 bg-gradient-to-r from-primary to-primary-glow text-white text-xs rounded-full h-5 md:h-6 w-5 md:w-6 flex items-center justify-center font-bold shadow-lg">
