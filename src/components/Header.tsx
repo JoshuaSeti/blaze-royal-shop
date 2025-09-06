@@ -45,6 +45,9 @@ const Header = () => {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={() => navigate('/profile')}>
+                    My Profile
+                  </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => navigate('/vendor')}>
                     Vendor Dashboard
                   </DropdownMenuItem>

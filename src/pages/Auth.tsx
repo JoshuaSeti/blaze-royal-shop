@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -158,6 +158,15 @@ const Auth = () => {
                   Create Account
                 </Button>
               </form>
+              
+              <div className="mt-4 text-center">
+                <Link 
+                  to="/vendor-auth" 
+                  className="text-sm text-primary hover:underline"
+                >
+                  Want to sell products? Register as a vendor →
+                </Link>
+              </div>
             </TabsContent>
           </Tabs>
         </CardContent>

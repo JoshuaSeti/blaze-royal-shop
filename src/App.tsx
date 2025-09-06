@@ -8,9 +8,12 @@ import Index from "./pages/Index";
 import Product from "./pages/Product";
 import Checkout from "./pages/Checkout";
 import Auth from "./pages/Auth";
+import VendorAuth from "./pages/VendorAuth";
+import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import VendorDashboard from "./pages/VendorDashboard";
 import VendorProducts from "./pages/VendorProducts";
+import VendorProtectedRoute from "./components/VendorProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -26,8 +29,18 @@ const App = () => (
             <Route path="/product/:id" element={<Product />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/auth" element={<Auth />} />
-            <Route path="/vendor" element={<VendorDashboard />} />
-            <Route path="/vendor/products" element={<VendorProducts />} />
+            <Route path="/vendor-auth" element={<VendorAuth />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/vendor" element={
+              <VendorProtectedRoute>
+                <VendorDashboard />
+              </VendorProtectedRoute>
+            } />
+            <Route path="/vendor/products" element={
+              <VendorProtectedRoute>
+                <VendorProducts />
+              </VendorProtectedRoute>
+            } />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
