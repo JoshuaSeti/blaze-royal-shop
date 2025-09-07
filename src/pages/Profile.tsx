@@ -178,6 +178,14 @@ const Profile = () => {
                   </div>
                 </div>
                 <Separator className="my-4" />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+                  <Button asChild variant="outline" className="justify-start">
+                    <Link to="/order-history">Order History</Link>
+                  </Button>
+                  <Button asChild variant="outline" className="justify-start">
+                    <Link to="/order-tracking">Track Orders</Link>
+                  </Button>
+                </div>
                 <div className="flex gap-2">
                   {profile.is_vendor && (
                     <Button asChild variant="outline">

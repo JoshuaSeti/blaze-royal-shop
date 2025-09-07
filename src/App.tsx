@@ -10,6 +10,10 @@ import Checkout from "./pages/Checkout";
 import Auth from "./pages/Auth";
 import VendorAuth from "./pages/VendorAuth";
 import Profile from "./pages/Profile";
+import Wallet from "./pages/Wallet";
+import Categories from "./pages/Categories";
+import OrderHistory from "./pages/OrderHistory";
+import OrderTracking from "./pages/OrderTracking";
 import NotFound from "./pages/NotFound";
 import VendorDashboard from "./pages/VendorDashboard";
 import VendorProducts from "./pages/VendorProducts";
@@ -33,6 +37,10 @@ const App = () => (
               <Route path="/auth" element={<Auth />} />
               <Route path="/vendor-auth" element={<VendorAuth />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/wallet" element={<Wallet />} />
+              <Route path="/categories" element={<Categories />} />
+              <Route path="/order-history" element={<OrderHistory />} />
+              <Route path="/order-tracking" element={<OrderTracking />} />
               <Route path="/vendor" element={
                 <VendorProtectedRoute>
                   <VendorDashboard />
