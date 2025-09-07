@@ -14,6 +14,7 @@ import NotFound from "./pages/NotFound";
 import VendorDashboard from "./pages/VendorDashboard";
 import VendorProducts from "./pages/VendorProducts";
 import VendorProtectedRoute from "./components/VendorProtectedRoute";
+import BottomNavigation from "./components/BottomNavigation";
 
 const queryClient = new QueryClient();
 
@@ -24,26 +25,29 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/product/:id" element={<Product />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/auth" element={<Auth />} />
-            <Route path="/vendor-auth" element={<VendorAuth />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/vendor" element={
-              <VendorProtectedRoute>
-                <VendorDashboard />
-              </VendorProtectedRoute>
-            } />
-            <Route path="/vendor/products" element={
-              <VendorProtectedRoute>
-                <VendorProducts />
-              </VendorProtectedRoute>
-            } />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <div className="min-h-screen pb-16 md:pb-0">
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/product/:id" element={<Product />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/auth" element={<Auth />} />
+              <Route path="/vendor-auth" element={<VendorAuth />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/vendor" element={
+                <VendorProtectedRoute>
+                  <VendorDashboard />
+                </VendorProtectedRoute>
+              } />
+              <Route path="/vendor/products" element={
+                <VendorProtectedRoute>
+                  <VendorProducts />
+                </VendorProtectedRoute>
+              } />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+            <BottomNavigation />
+          </div>
         </BrowserRouter>
       </TooltipProvider>
     </AuthProvider>
