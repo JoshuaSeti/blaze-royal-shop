@@ -10,6 +10,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Package, Search, Edit, Trash2, Tag, Plus, ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { useVendorProducts } from "@/hooks/useProducts";
+import AddProductForm from "@/components/AddProductForm";
 
 // Mock product data
 const mockProducts = [
@@ -56,7 +58,7 @@ const mockProducts = [
 ];
 
 const VendorProducts = () => {
-  const [products, setProducts] = useState(mockProducts);
+  const { products, loading, deleteProduct, updateProduct, refetch } = useVendorProducts();
   const [searchTerm, setSearchTerm] = useState("");
   const [editingProduct, setEditingProduct] = useState<any>(null);
   const [discountDialogOpen, setDiscountDialogOpen] = useState(false);
@@ -69,19 +71,15 @@ const VendorProducts = () => {
     product.category.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const handleDeleteProduct = (id: number) => {
-    setProducts(products.filter(p => p.id !== id));
-    toast.success("Product deleted successfully");
+  const handleDeleteProduct = async (id: string) => {
+    await deleteProduct(id);
   };
 
-  const handleApplyDiscount = () => {
+  const handleApplyDiscount = async () => {
     if (selectedProduct && discountValue) {
-      setProducts(products.map(p => 
-        p.id === selectedProduct.id 
-          ? { ...p, discount: parseInt(discountValue) }
-          : p
-      ));
-      toast.success("Discount applied successfully");
+      // This feature would need to be implemented in the database schema
+      // For now, just close the dialog
+      toast.success("Discount feature coming soon");
       setDiscountDialogOpen(false);
       setDiscountValue("");
       setSelectedProduct(null);
@@ -129,13 +127,7 @@ const VendorProducts = () => {
                 className="pl-10 focus:ring-primary/20"
               />
             </div>
-            <Button 
-              onClick={() => navigate('/vendor')}
-              className="bg-gradient-to-r from-primary to-primary-hover"
-            >
-              <Plus className="h-4 w-4 mr-2" />
-              Add Product
-            </Button>
+            <AddProductForm onProductAdded={refetch} />
           </div>
         </div>
 
@@ -165,44 +157,28 @@ const VendorProducts = () => {
                   {filteredProducts.map((product) => (
                     <TableRow key={product.id}>
                       <TableCell>
-                        <div className="w-16 h-16 bg-muted rounded-lg flex items-center justify-center">
-                          <Package className="h-6 w-6 text-muted-foreground" />
+                        <div className="w-16 h-16 bg-muted rounded-lg flex items-center justify-center overflow-hidden">
+                          {product.image_url ? (
+                            <img 
+                              src={product.image_url} 
+                              alt={product.name}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <Package className="h-6 w-6 text-muted-foreground" />
+                          )}
                         </div>
                       </TableCell>
                       <TableCell className="font-medium">{product.name}</TableCell>
                       <TableCell>{product.category}</TableCell>
                       <TableCell>${product.price}</TableCell>
-                      <TableCell>{product.quantity}</TableCell>
-                      <TableCell>{getStatusBadge(product.status, product.quantity)}</TableCell>
+                      <TableCell>{product.stock_quantity}</TableCell>
+                      <TableCell>{getStatusBadge(product.is_active ? "active" : "inactive", product.stock_quantity)}</TableCell>
                       <TableCell>
-                        {product.discount > 0 ? (
-                          <Badge variant="outline" className="text-green-600">
-                            {product.discount}% OFF
-                          </Badge>
-                        ) : (
-                          <span className="text-muted-foreground">None</span>
-                        )}
+                        <span className="text-muted-foreground">None</span>
                       </TableCell>
                       <TableCell className="text-right">
                         <div className="flex gap-2 justify-end">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => {
-                              setSelectedProduct(product);
-                              setDiscountValue(product.discount.toString());
-                              setDiscountDialogOpen(true);
-                            }}
-                          >
-                            <Tag className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => setEditingProduct(product)}
-                          >
-                            <Edit className="h-4 w-4" />
-                          </Button>
                           <Button
                             variant="outline"
                             size="sm"
@@ -226,13 +202,7 @@ const VendorProducts = () => {
                 <p className="text-muted-foreground mb-4">
                   {searchTerm ? "Try adjusting your search terms" : "Get started by adding your first product"}
                 </p>
-                <Button 
-                  onClick={() => navigate('/vendor')}
-                  className="bg-gradient-to-r from-primary to-primary-hover"
-                >
-                  <Plus className="h-4 w-4 mr-2" />
-                  Add Product
-                </Button>
+                <AddProductForm onProductAdded={refetch} />
               </div>
             )}
           </CardContent>

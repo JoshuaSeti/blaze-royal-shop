@@ -35,15 +35,16 @@ const HorizontalProductList = ({ title, products, viewAllLink }: HorizontalProdu
           <div className="flex space-x-4 md:space-x-8 pb-6 px-2" style={{ width: 'max-content' }}>
             {products.map((product) => (
               <div key={product.id} className="w-72 md:w-80 flex-shrink-0 hover-lift">
-                <ProductCard
-                  id={product.id}
-                  image={product.image}
-                  name={product.name}
-                  price={product.price}
-                  originalPrice={product.originalPrice}
-                  rating={product.rating}
-                  reviews={product.reviews}
-                />
+            <ProductCard
+              key={product.id}
+              id={product.id.toString()}
+              image={product.image}
+              name={product.name}
+              price={product.price}
+              originalPrice={product.originalPrice}
+              rating={product.rating}
+              reviews={product.reviews}
+            />
               </div>
             ))}
           </div>

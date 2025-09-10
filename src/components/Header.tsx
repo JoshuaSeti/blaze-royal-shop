@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { ShoppingCart, Search, User, LogOut } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "@/hooks/useCart";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,6 +13,7 @@ import {
 
 const Header = () => {
   const { user, signOut } = useAuth();
+  const { cartCount } = useCart();
   const navigate = useNavigate();
 
   return (
@@ -68,11 +70,18 @@ const Header = () => {
               </Button>
             )}
             
-            <Button variant="ghost" size="icon" className="relative hover:bg-accent rounded-full">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="relative hover:bg-accent rounded-full"
+              onClick={() => navigate('/cart')}
+            >
               <ShoppingCart className="h-5 w-5" />
-              <span className="absolute -top-2 -right-2 bg-gradient-to-r from-primary to-primary-glow text-white text-xs rounded-full h-5 md:h-6 w-5 md:w-6 flex items-center justify-center font-bold shadow-lg">
-                3
-              </span>
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-gradient-to-r from-primary to-primary-glow text-white text-xs rounded-full h-5 md:h-6 w-5 md:w-6 flex items-center justify-center font-bold shadow-lg">
+                  {cartCount}
+                </span>
+              )}
             </Button>
           </div>
         </div>

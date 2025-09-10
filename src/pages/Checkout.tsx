@@ -8,6 +8,11 @@ import { Separator } from "@/components/ui/separator";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { CreditCard, Truck, Smartphone } from "lucide-react";
+import { useCart } from "@/hooks/useCart";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
+import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
   const [paymentMethod, setPaymentMethod] = useState("cod");
@@ -20,26 +25,77 @@ const Checkout = () => {
     city: "",
     postalCode: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  const { cartItems, cartTotal, clearCart } = useCart();
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setDeliveryDetails(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Order submitted:", { deliveryDetails, paymentMethod });
-    // Handle order submission
+    
+    if (!user) {
+      toast.error("Please sign in to place an order");
+      return;
+    }
+
+    if (cartItems.length === 0) {
+      toast.error("Your cart is empty");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Create order
+      const { data: order, error: orderError } = await supabase
+        .from("orders")
+        .insert([{
+          user_id: user.id,
+          total_amount: total,
+          status: "pending",
+          shipping_address: deliveryDetails
+        }])
+        .select()
+        .single();
+
+      if (orderError) throw orderError;
+
+      // Create order items
+      const orderItems = cartItems.map(item => ({
+        order_id: order.id,
+        product_id: item.product_id,
+        quantity: item.quantity,
+        price: item.products.price
+      }));
+
+      const { error: itemsError } = await supabase
+        .from("order_items")
+        .insert(orderItems);
+
+      if (itemsError) throw itemsError;
+
+      // Clear cart
+      await clearCart();
+      
+      toast.success("Order placed successfully!");
+      navigate("/order-history");
+      
+    } catch (error) {
+      console.error("Error placing order:", error);
+      toast.error("Failed to place order. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const orderItems = [
-    { name: "Wireless Headphones", price: 299, quantity: 1 },
-    { name: "Smart Watch", price: 199, quantity: 1 },
-  ];
-
-  const subtotal = orderItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const shipping = 25;
-  const total = subtotal + shipping;
+  const total = cartTotal + shipping;
 
   return (
     <div className="min-h-screen bg-background">
@@ -217,13 +273,13 @@ const Checkout = () => {
                   <CardTitle>Order Summary</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  {orderItems.map((item, index) => (
+                  {cartItems.map((item, index) => (
                     <div key={index} className="flex justify-between items-center">
                       <div>
-                        <div className="font-medium">{item.name}</div>
+                        <div className="font-medium">{item.products.name}</div>
                         <div className="text-sm text-muted-foreground">Qty: {item.quantity}</div>
                       </div>
-                      <div className="font-medium">K{item.price * item.quantity}</div>
+                      <div className="font-medium">K{(Number(item.products.price) * item.quantity).toFixed(2)}</div>
                     </div>
                   ))}
                   
@@ -231,7 +287,7 @@ const Checkout = () => {
                   
                   <div className="flex justify-between">
                     <span>Subtotal</span>
-                    <span>K{subtotal}</span>
+                    <span>K{cartTotal.toFixed(2)}</span>
                   </div>
                   
                   <div className="flex justify-between">
@@ -250,8 +306,9 @@ const Checkout = () => {
                     className="w-full mt-6" 
                     size="lg"
                     onClick={handleSubmit}
+                    disabled={isSubmitting || cartItems.length === 0}
                   >
-                    Place Order
+                    {isSubmitting ? "Placing Order..." : "Place Order"}
                   </Button>
                 </CardContent>
               </Card>

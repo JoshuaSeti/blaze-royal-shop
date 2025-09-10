@@ -1,37 +1,33 @@
 import ProductCard from "./ProductCard";
-import headphonesImg from "@/assets/product-headphones.jpg";
-import backpackImg from "@/assets/product-backpack.jpg";
-import phoneImg from "@/assets/product-phone.jpg";
+import { useProducts } from "@/hooks/useProducts";
 
 const FeaturedProducts = () => {
-  const products = [
-    {
-      id: 1,
-      image: headphonesImg,
-      name: "Premium Wireless Headphones",
-      price: 299,
-      originalPrice: 399,
-      rating: 5,
-      reviews: 124
-    },
-    {
-      id: 2,
-      image: backpackImg,
-      name: "Leather Travel Backpack",
-      price: 189,
-      rating: 4,
-      reviews: 89
-    },
-    {
-      id: 3,
-      image: phoneImg,
-      name: "Latest Smartphone",
-      price: 799,
-      originalPrice: 899,
-      rating: 5,
-      reviews: 256
-    }
-  ];
+  const { products, loading } = useProducts();
+  
+  if (loading) {
+    return (
+      <section className="py-16 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+              Featured Products
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Discover our hand-picked selection of premium products with unbeatable prices and quality
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className="bg-muted animate-pulse rounded-lg h-96"></div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+  
+  // Take first 6 products for featured display
+  const featuredProducts = products.slice(0, 6);
 
   return (
     <section className="py-16 bg-background">
@@ -46,18 +42,23 @@ const FeaturedProducts = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-           {products.map((product) => (
-            <ProductCard
-              key={product.id}
-              id={product.id}
-              image={product.image}
-              name={product.name}
-              price={product.price}
-              originalPrice={product.originalPrice}
-              rating={product.rating}
-              reviews={product.reviews}
-            />
-          ))}
+          {featuredProducts.length > 0 ? (
+            featuredProducts.map((product) => (
+              <ProductCard
+                key={product.id}
+                id={product.id}
+                image={product.image_url || "/api/placeholder/300/300"}
+                name={product.name}
+                price={Number(product.price)}
+                rating={4}
+                reviews={Math.floor(Math.random() * 100) + 10}
+              />
+            ))
+          ) : (
+            <div className="col-span-full text-center py-12">
+              <p className="text-muted-foreground">No products available yet.</p>
+            </div>
+          )}
         </div>
 
         <div className="text-center mt-12">

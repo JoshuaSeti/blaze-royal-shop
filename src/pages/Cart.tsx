@@ -3,52 +3,40 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Trash2, Plus, Minus, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useCart } from "@/hooks/useCart";
 
 const Cart = () => {
-  // Mock cart data - in a real app this would come from state management
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "Premium Wireless Headphones",
-      price: 299.99,
-      quantity: 1,
-      image: "/src/assets/product-headphones.jpg"
-    },
-    {
-      id: 2,
-      name: "Smart Watch Series 7",
-      price: 399.99,
-      quantity: 2,
-      image: "/src/assets/product-watch.jpg"
-    },
-    {
-      id: 3,
-      name: "Laptop Backpack",
-      price: 89.99,
-      quantity: 1,
-      image: "/src/assets/product-backpack.jpg"
-    }
-  ]);
+  const { cartItems, loading, updateCartItemQuantity, removeFromCart, cartTotal } = useCart();
 
-  const updateQuantity = (id: number, change: number) => {
-    setCartItems(items => 
-      items.map(item => 
-        item.id === id 
-          ? { ...item, quantity: Math.max(0, item.quantity + change) }
-          : item
-      ).filter(item => item.quantity > 0)
-    );
-  };
-
-  const removeItem = (id: number) => {
-    setCartItems(items => items.filter(item => item.id !== id));
-  };
-
-  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const shipping = 9.99;
-  const tax = subtotal * 0.08;
-  const total = subtotal + shipping + tax;
+  const tax = cartTotal * 0.08;
+  const total = cartTotal + shipping + tax;
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <div className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b">
+          <div className="container mx-auto px-4 py-4">
+            <div className="flex items-center space-x-4">
+              <Link to="/">
+                <Button variant="ghost" size="icon" className="hover:bg-accent">
+                  <ArrowLeft className="h-5 w-5" />
+                </Button>
+              </Link>
+              <h1 className="text-2xl font-bold">Shopping Cart</h1>
+            </div>
+          </div>
+        </div>
+        <div className="container mx-auto px-4 py-6">
+          <div className="animate-pulse space-y-4">
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className="bg-muted rounded-lg h-24"></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -91,19 +79,22 @@ const Cart = () => {
                   <CardContent className="p-4">
                     <div className="flex items-center space-x-4">
                       <img
-                        src={item.image}
-                        alt={item.name}
+                        src={item.products.image_url || "/api/placeholder/80/80"}
+                        alt={item.products.name}
                         className="w-20 h-20 object-cover rounded-lg"
                       />
                       <div className="flex-1">
-                        <h3 className="font-semibold text-lg">{item.name}</h3>
-                        <p className="text-primary font-bold text-xl">${item.price}</p>
+                        <h3 className="font-semibold text-lg">{item.products.name}</h3>
+                        <p className="text-primary font-bold text-xl">${item.products.price}</p>
+                        {item.products.stock_quantity < 10 && (
+                          <p className="text-orange-500 text-sm">Only {item.products.stock_quantity} left in stock</p>
+                        )}
                       </div>
                       <div className="flex items-center space-x-3">
                         <Button
                           variant="outline"
                           size="icon"
-                          onClick={() => updateQuantity(item.id, -1)}
+                          onClick={() => updateCartItemQuantity(item.id, item.quantity - 1)}
                           className="h-8 w-8"
                         >
                           <Minus className="h-4 w-4" />
@@ -112,15 +103,16 @@ const Cart = () => {
                         <Button
                           variant="outline"
                           size="icon"
-                          onClick={() => updateQuantity(item.id, 1)}
+                          onClick={() => updateCartItemQuantity(item.id, item.quantity + 1)}
                           className="h-8 w-8"
+                          disabled={item.quantity >= item.products.stock_quantity}
                         >
                           <Plus className="h-4 w-4" />
                         </Button>
                         <Button
                           variant="ghost"
                           size="icon"
-                          onClick={() => removeItem(item.id)}
+                          onClick={() => removeFromCart(item.id)}
                           className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
                         >
                           <Trash2 className="h-4 w-4" />
@@ -141,7 +133,7 @@ const Cart = () => {
                   <div className="space-y-3">
                     <div className="flex justify-between">
                       <span>Subtotal</span>
-                      <span className="font-semibold">${subtotal.toFixed(2)}</span>
+                      <span className="font-semibold">${cartTotal.toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Shipping</span>

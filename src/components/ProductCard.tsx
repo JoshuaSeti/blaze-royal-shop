@@ -3,19 +3,25 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Heart, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useCart } from "@/hooks/useCart";
 
 interface ProductCardProps {
-  id?: number;
+  id?: string;
   image: string;
   name: string;
   price: number;
   originalPrice?: number;
-  rating: number;
-  reviews: number;
+  rating?: number;
+  reviews?: number;
 }
 
-const ProductCard = ({ id = 1, image, name, price, originalPrice, rating, reviews }: ProductCardProps) => {
+const ProductCard = ({ id = "1", image, name, price, originalPrice, rating = 0, reviews = 0 }: ProductCardProps) => {
   const [isFavorite, setIsFavorite] = useState(false);
+  const { addToCart } = useCart();
+  
+  const handleAddToCart = () => {
+    addToCart(id);
+  };
   
   return (
     <Card className="product-card group border-0 overflow-hidden">
@@ -57,17 +63,19 @@ const ProductCard = ({ id = 1, image, name, price, originalPrice, rating, review
           </Link>
           
           {/* Rating */}
-          <div className="flex items-center space-x-2">
-            <div className="flex items-center space-x-0.5">
-              {[...Array(5)].map((_, i) => (
-                <Star 
-                  key={i} 
-                  className={`h-4 w-4 ${i < rating ? 'fill-primary text-primary' : 'text-muted-foreground'}`} 
-                />
-              ))}
+          {(rating > 0 || reviews > 0) && (
+            <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-0.5">
+                {[...Array(5)].map((_, i) => (
+                  <Star 
+                    key={i} 
+                    className={`h-4 w-4 ${i < rating ? 'fill-primary text-primary' : 'text-muted-foreground'}`} 
+                  />
+                ))}
+              </div>
+              <span className="text-sm text-muted-foreground font-medium">({reviews})</span>
             </div>
-            <span className="text-sm text-muted-foreground font-medium">({reviews})</span>
-          </div>
+          )}
 
           {/* Price */}
           <div className="flex items-baseline space-x-3">
@@ -78,7 +86,10 @@ const ProductCard = ({ id = 1, image, name, price, originalPrice, rating, review
           </div>
 
           {/* Add to Cart Button */}
-          <Button className="w-full btn-premium text-white font-semibold py-3 hover:scale-[1.02] transition-all duration-300">
+          <Button 
+            className="w-full btn-premium text-white font-semibold py-3 hover:scale-[1.02] transition-all duration-300"
+            onClick={handleAddToCart}
+          >
             Add to Cart
           </Button>
         </div>
