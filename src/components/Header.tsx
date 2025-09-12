@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ShoppingCart, Search, User, LogOut } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useCart } from "@/hooks/useCart";
 import {
   DropdownMenu,
@@ -23,12 +23,23 @@ const Header = () => {
           {/* Logo and Search */}
           <div className="flex items-center space-x-4 md:space-x-8 flex-1">
             <div className="text-xl md:text-2xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
-              ShopHub
+              <Link to="/">ShopHub</Link>
             </div>
+            
+            {/* Navigation Links */}
+            <div className="hidden lg:flex items-center space-x-1">
+              <Button variant="ghost" className="text-foreground hover:text-primary">
+                <Link to="/categories">Categories</Link>
+              </Button>
+              <Button variant="ghost" className="text-foreground hover:text-primary">
+                <Link to="/stores">Stores</Link>
+              </Button>
+            </div>
+            
             <div className="hidden md:flex flex-1 max-w-2xl">
               <div className="relative w-full">
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
-<Input 
+                <Input 
                   placeholder="Search for products..." 
                   className="pl-12 py-3 bg-muted/50 border-border/50 rounded-full focus:ring-2 focus:ring-primary/20 transition-all duration-300"
                   aria-label="Search products"

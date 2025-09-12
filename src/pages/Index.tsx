@@ -7,137 +7,60 @@ import HorizontalProductList from "@/components/HorizontalProductList";
 import FeaturedCategories from "@/components/FeaturedCategories";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import Footer from "@/components/Footer";
-
-// Import product images
-import headphonesImg from "@/assets/product-headphones.jpg";
-import backpackImg from "@/assets/product-backpack.jpg";
-import phoneImg from "@/assets/product-phone.jpg";
-import mouseImg from "@/assets/product-mouse.jpg";
-import laptopImg from "@/assets/product-laptop.jpg";
-import watchImg from "@/assets/product-watch.jpg";
+import { useProducts } from "@/hooks/useProducts";
 
 const Index = () => {
-  // Sample product data
-  const bestSellers = [
-    {
-      id: 1,
-      image: headphonesImg,
-      name: "Premium Wireless Headphones",
-      price: 299,
-      originalPrice: 399,
-      rating: 5,
-      reviews: 124
-    },
-    {
-      id: 2,
-      image: laptopImg,
-      name: "Modern Laptop Pro",
-      price: 1299,
-      originalPrice: 1499,
-      rating: 5,
-      reviews: 89
-    },
-    {
-      id: 3,
-      image: phoneImg,
-      name: "Latest Smartphone",
-      price: 799,
-      originalPrice: 899,
-      rating: 5,
-      reviews: 256
-    },
-    {
-      id: 4,
-      image: watchImg,
-      name: "Smart Fitness Watch",
-      price: 249,
-      rating: 4,
-      reviews: 178
-    },
-    {
-      id: 5,
-      image: mouseImg,
-      name: "Wireless Gaming Mouse",
-      price: 89,
-      originalPrice: 129,
-      rating: 4,
-      reviews: 92
-    }
-  ];
+  const { products, loading } = useProducts();
 
-  const todaysDeals = [
-    {
-      id: 11,
-      image: headphonesImg,
-      name: "Premium Wireless Headphones",
-      price: 199,
-      originalPrice: 399,
-      rating: 5,
-      reviews: 124
-    },
-    {
-      id: 12,
-      image: mouseImg,
-      name: "Gaming Mouse Pro",
-      price: 59,
-      originalPrice: 89,
-      rating: 4,
-      reviews: 203
-    },
-    {
-      id: 13,
-      image: watchImg,
-      name: "Fitness Tracker",
-      price: 149,
-      originalPrice: 229,
-      rating: 4,
-      reviews: 89
-    },
-    {
-      id: 14,
-      image: backpackImg,
-      name: "Travel Backpack",
-      price: 89,
-      originalPrice: 149,
-      rating: 5,
-      reviews: 156
-    }
-  ];
+  // Convert database products to display format
+  const convertToDisplayProduct = (product: any) => ({
+    id: parseInt(product.id.replace(/-/g, '').substring(0, 8), 16), // Convert UUID to number for display
+    image: product.image_url || "/placeholder.svg",
+    name: product.name,
+    price: Number(product.price),
+    rating: 4 + Math.random(), // Random rating between 4-5
+    reviews: Math.floor(Math.random() * 200) + 50 // Random reviews 50-250
+  });
 
-  const recommendedProducts = [
-    {
-      id: 15,
-      image: phoneImg,
-      name: "Smartphone Pro Max",
-      price: 999,
-      rating: 5,
-      reviews: 2341
-    },
-    {
-      id: 16,
-      image: laptopImg,
-      name: "Ultra-thin Laptop",
-      price: 1599,
-      rating: 5,
-      reviews: 567
-    },
-    {
-      id: 17,
-      image: headphonesImg,
-      name: "Studio Headphones",
-      price: 349,
-      rating: 5,
-      reviews: 891
-    },
-    {
-      id: 18,
-      image: watchImg,
-      name: "Premium Smartwatch",
-      price: 449,
-      rating: 4,
-      reviews: 234
-    }
-  ];
+  if (loading) {
+    return (
+      <div className="min-h-screen">
+        <Header />
+        <main className="flex items-center justify-center py-16">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
+            <p className="mt-4 text-muted-foreground">Loading products...</p>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  // Organize products by category for different sections
+  const electronicProducts = products.filter(p => 
+    p.category.toLowerCase().includes('electronics') || 
+    p.category.toLowerCase().includes('tech')
+  ).slice(0, 5).map(convertToDisplayProduct);
+
+  const fashionProducts = products.filter(p => 
+    p.category.toLowerCase().includes('fashion') || 
+    p.category.toLowerCase().includes('clothing')
+  ).slice(0, 5).map(convertToDisplayProduct);
+
+  const homeProducts = products.filter(p => 
+    p.category.toLowerCase().includes('home') || 
+    p.category.toLowerCase().includes('furniture')
+  ).slice(0, 5).map(convertToDisplayProduct);
+
+  // Fallback to recent products if categories are empty
+  const recentProducts = products.slice(0, 5).map(convertToDisplayProduct);
+  const popularProducts = products.slice(5, 10).map(convertToDisplayProduct);
+  const recommendedProducts = products.slice(10, 15).map(convertToDisplayProduct);
+
+  const bestSellers = electronicProducts.length > 0 ? electronicProducts : recentProducts;
+  const todaysDeals = fashionProducts.length > 0 ? fashionProducts : popularProducts;
+  const recommended = homeProducts.length > 0 ? homeProducts : recommendedProducts;
 
   return (
     <div className="min-h-screen">
@@ -149,19 +72,19 @@ const Index = () => {
         <HorizontalProductList 
           title="Today's Deals" 
           products={todaysDeals}
-          viewAllLink="/deals"
+          viewAllLink="/search?category=deals"
         />
         <BannerCarousel />
         <HorizontalProductList 
           title="Best Sellers" 
           products={bestSellers}
-          viewAllLink="/bestsellers"
+          viewAllLink="/search?category=electronics"
         />
         <CategorySelector />
         <HorizontalProductList 
           title="Recommended for You" 
-          products={recommendedProducts}
-          viewAllLink="/recommended"
+          products={recommended}
+          viewAllLink="/search"
         />
         <BrandSelector />
       </main>

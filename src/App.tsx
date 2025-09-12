@@ -21,6 +21,7 @@ import VendorProducts from "./pages/VendorProducts";
 import VendorProtectedRoute from "./components/VendorProtectedRoute";
 import BottomNavigation from "./components/BottomNavigation";
 import Search from "./pages/Search";
+import Stores from "./pages/Stores";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +36,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/search" element={<Search />} />
+              <Route path="/stores" element={<Stores />} />
               <Route path="/product/:id" element={<Product />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/checkout" element={<Checkout />} />
