@@ -20,6 +20,7 @@ import VendorDashboard from "./pages/VendorDashboard";
 import VendorProducts from "./pages/VendorProducts";
 import VendorProtectedRoute from "./components/VendorProtectedRoute";
 import BottomNavigation from "./components/BottomNavigation";
+import Search from "./pages/Search";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ const App = () => (
           <div className="min-h-screen pb-16 md:pb-0">
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/search" element={<Search />} />
               <Route path="/product/:id" element={<Product />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/checkout" element={<Checkout />} />

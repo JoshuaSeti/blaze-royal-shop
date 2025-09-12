@@ -4,6 +4,7 @@ import { Heart, Star } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useCart } from "@/hooks/useCart";
+import { toast } from "sonner";
 
 interface ProductCardProps {
   id?: string;
@@ -15,14 +16,19 @@ interface ProductCardProps {
   reviews?: number;
 }
 
-const ProductCard = ({ id = "1", image, name, price, originalPrice, rating = 0, reviews = 0 }: ProductCardProps) => {
+const ProductCard = ({ id, image, name, price, originalPrice, rating = 0, reviews = 0 }: ProductCardProps) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const { addToCart } = useCart();
+  const isValidUUID = (v?: string) => !!v && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(v);
   
-  const handleAddToCart = () => {
-    addToCart(id);
+const handleAddToCart = () => {
+    const pid = id ?? "";
+    if (!isValidUUID(pid)) {
+      toast.error("This item can't be added. Please choose a listed product.");
+      return;
+    }
+    addToCart(pid);
   };
-  
   return (
     <Card className="product-card group border-0 overflow-hidden">
       <CardContent className="p-0">
@@ -86,9 +92,11 @@ const ProductCard = ({ id = "1", image, name, price, originalPrice, rating = 0, 
           </div>
 
           {/* Add to Cart Button */}
-          <Button 
+<Button 
             className="w-full btn-premium text-white font-semibold py-3 hover:scale-[1.02] transition-all duration-300"
             onClick={handleAddToCart}
+            disabled={!isValidUUID(id)}
+            aria-disabled={!isValidUUID(id)}
           >
             Add to Cart
           </Button>

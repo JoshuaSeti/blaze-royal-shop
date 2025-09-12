@@ -28,9 +28,16 @@ const Header = () => {
             <div className="hidden md:flex flex-1 max-w-2xl">
               <div className="relative w-full">
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
-                <Input 
+<Input 
                   placeholder="Search for products..." 
                   className="pl-12 py-3 bg-muted/50 border-border/50 rounded-full focus:ring-2 focus:ring-primary/20 transition-all duration-300"
+                  aria-label="Search products"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      const q = (e.currentTarget as HTMLInputElement).value.trim();
+                      if (q) navigate(`/search?q=${encodeURIComponent(q)}`);
+                    }
+                  }}
                 />
               </div>
             </div>
@@ -90,9 +97,16 @@ const Header = () => {
         <div className="md:hidden mt-4">
           <div className="relative">
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-            <Input 
+<Input 
               placeholder="Search for products..." 
               className="pl-11 py-3 bg-muted/50 border-border/50 rounded-full focus:ring-2 focus:ring-primary/20 transition-all duration-300 w-full"
+              aria-label="Search products"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  const q = (e.currentTarget as HTMLInputElement).value.trim();
+                  if (q) navigate(`/search?q=${encodeURIComponent(q)}`);
+                }
+              }}
             />
           </div>
         </div>

@@ -5,6 +5,7 @@ import CategorySelector from "@/components/CategorySelector";
 import BrandSelector from "@/components/BrandSelector";
 import HorizontalProductList from "@/components/HorizontalProductList";
 import FeaturedCategories from "@/components/FeaturedCategories";
+import FeaturedProducts from "@/components/FeaturedProducts";
 import Footer from "@/components/Footer";
 
 // Import product images
@@ -143,6 +144,7 @@ const Index = () => {
       <Header />
       <main>
         <Hero />
+        <FeaturedProducts />
         <FeaturedCategories />
         <HorizontalProductList 
           title="Today's Deals" 
