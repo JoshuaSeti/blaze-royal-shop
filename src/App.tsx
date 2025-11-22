@@ -18,10 +18,23 @@ import OrderTracking from "./pages/OrderTracking";
 import NotFound from "./pages/NotFound";
 import VendorDashboard from "./pages/VendorDashboard";
 import VendorProducts from "./pages/VendorProducts";
+import VendorOrderManagement from "./pages/VendorOrderManagement";
+import VendorAnalytics from "./pages/VendorAnalytics";
+import VendorWithdraw from "./pages/VendorWithdraw";
 import VendorProtectedRoute from "./components/VendorProtectedRoute";
 import BottomNavigation from "./components/BottomNavigation";
 import Search from "./pages/Search";
 import Stores from "./pages/Stores";
+import PasswordReset from "./pages/PasswordReset";
+import Wishlist from "./pages/Wishlist";
+import Recommendations from "./pages/Recommendations";
+import Returns from "./pages/Returns";
+import Help from "./pages/Help";
+import Support from "./pages/Support";
+import Reviews from "./pages/Reviews";
+import Referral from "./pages/Referral";
+import Promotions from "./pages/Promotions";
+import Blog from "./pages/Blog";
 
 const queryClient = new QueryClient();
 
@@ -41,12 +54,22 @@ const App = () => (
               <Route path="/cart" element={<Cart />} />
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/auth" element={<Auth />} />
+              <Route path="/password-reset" element={<PasswordReset />} />
               <Route path="/vendor-auth" element={<VendorAuth />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/wallet" element={<Wallet />} />
+              <Route path="/wishlist" element={<Wishlist />} />
+              <Route path="/recommendations" element={<Recommendations />} />
               <Route path="/categories" element={<Categories />} />
               <Route path="/order-history" element={<OrderHistory />} />
               <Route path="/order-tracking" element={<OrderTracking />} />
+              <Route path="/returns" element={<Returns />} />
+              <Route path="/help" element={<Help />} />
+              <Route path="/support" element={<Support />} />
+              <Route path="/reviews" element={<Reviews />} />
+              <Route path="/referral" element={<Referral />} />
+              <Route path="/promotions" element={<Promotions />} />
+              <Route path="/blog" element={<Blog />} />
               <Route path="/vendor" element={
                 <VendorProtectedRoute>
                   <VendorDashboard />
@@ -55,6 +78,21 @@ const App = () => (
               <Route path="/vendor/products" element={
                 <VendorProtectedRoute>
                   <VendorProducts />
+                </VendorProtectedRoute>
+              } />
+              <Route path="/vendor/orders" element={
+                <VendorProtectedRoute>
+                  <VendorOrderManagement />
+                </VendorProtectedRoute>
+              } />
+              <Route path="/vendor/analytics" element={
+                <VendorProtectedRoute>
+                  <VendorAnalytics />
+                </VendorProtectedRoute>
+              } />
+              <Route path="/vendor/withdraw" element={
+                <VendorProtectedRoute>
+                  <VendorWithdraw />
                 </VendorProtectedRoute>
               } />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
