@@ -21,7 +21,26 @@ import VendorProducts from "./pages/VendorProducts";
 import VendorOrderManagement from "./pages/VendorOrderManagement";
 import VendorAnalytics from "./pages/VendorAnalytics";
 import VendorWithdraw from "./pages/VendorWithdraw";
+import VendorReturns from "./pages/VendorReturns";
+import VendorPromotions from "./pages/VendorPromotions";
+import VendorAnnouncements from "./pages/VendorAnnouncements";
 import VendorProtectedRoute from "./components/VendorProtectedRoute";
+import LogisticsLogin from "./pages/LogisticsLogin";
+import LogisticsDashboard from "./pages/LogisticsDashboard";
+import LogisticsEarnings from "./pages/LogisticsEarnings";
+import AdminLogin from "./pages/AdminLogin";
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminUsers from "./pages/AdminUsers";
+import AdminVendors from "./pages/AdminVendors";
+import AdminProducts from "./pages/AdminProducts";
+import AdminDisputes from "./pages/AdminDisputes";
+import AdminCampaigns from "./pages/AdminCampaigns";
+import AdminContent from "./pages/AdminContent";
+import TermsConditions from "./pages/TermsConditions";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import DeliveryPolicy from "./pages/DeliveryPolicy";
+import Careers from "./pages/Careers";
+import About from "./pages/About";
 import BottomNavigation from "./components/BottomNavigation";
 import Search from "./pages/Search";
 import Stores from "./pages/Stores";
@@ -95,6 +114,37 @@ const App = () => (
                   <VendorWithdraw />
                 </VendorProtectedRoute>
               } />
+              <Route path="/vendor/returns" element={
+                <VendorProtectedRoute>
+                  <VendorReturns />
+                </VendorProtectedRoute>
+              } />
+              <Route path="/vendor/promotions" element={
+                <VendorProtectedRoute>
+                  <VendorPromotions />
+                </VendorProtectedRoute>
+              } />
+              <Route path="/vendor/announcements" element={
+                <VendorProtectedRoute>
+                  <VendorAnnouncements />
+                </VendorProtectedRoute>
+              } />
+              <Route path="/logistics-login" element={<LogisticsLogin />} />
+              <Route path="/logistics/dashboard" element={<LogisticsDashboard />} />
+              <Route path="/logistics/earnings" element={<LogisticsEarnings />} />
+              <Route path="/admin-login" element={<AdminLogin />} />
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              <Route path="/admin/users" element={<AdminUsers />} />
+              <Route path="/admin/vendors" element={<AdminVendors />} />
+              <Route path="/admin/products" element={<AdminProducts />} />
+              <Route path="/admin/disputes" element={<AdminDisputes />} />
+              <Route path="/admin/campaigns" element={<AdminCampaigns />} />
+              <Route path="/admin/content" element={<AdminContent />} />
+              <Route path="/terms" element={<TermsConditions />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/delivery-policy" element={<DeliveryPolicy />} />
+              <Route path="/careers" element={<Careers />} />
+              <Route path="/about" element={<About />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
