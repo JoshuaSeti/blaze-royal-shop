@@ -1,11 +1,8 @@
 import Header from "@/components/Header";
-import Hero from "@/components/Hero";
 import BannerCarousel from "@/components/BannerCarousel";
 import CategorySelector from "@/components/CategorySelector";
 import BrandSelector from "@/components/BrandSelector";
 import HorizontalProductList from "@/components/HorizontalProductList";
-import FeaturedCategories from "@/components/FeaturedCategories";
-import FeaturedProducts from "@/components/FeaturedProducts";
 import Footer from "@/components/Footer";
 import { useProducts } from "@/hooks/useProducts";
 
@@ -66,9 +63,6 @@ const Index = () => {
     <div className="min-h-screen">
       <Header />
       <main>
-        <Hero />
-        <FeaturedProducts />
-        <FeaturedCategories />
         <HorizontalProductList 
           title="Today's Deals" 
           products={todaysDeals}
