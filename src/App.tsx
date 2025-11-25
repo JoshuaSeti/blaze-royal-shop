@@ -10,6 +10,7 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Auth from "./pages/Auth";
 import VendorAuth from "./pages/VendorAuth";
+import VendorLogin from "./pages/VendorLogin";
 import Profile from "./pages/Profile";
 import Wallet from "./pages/Wallet";
 import Categories from "./pages/Categories";
@@ -74,7 +75,8 @@ const App = () => (
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/password-reset" element={<PasswordReset />} />
-              <Route path="/vendor-auth" element={<VendorAuth />} />
+          <Route path="/vendor-auth" element={<VendorAuth />} />
+          <Route path="/vendor-login" element={<VendorLogin />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/wallet" element={<Wallet />} />
               <Route path="/wishlist" element={<Wishlist />} />
