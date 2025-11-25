@@ -63,12 +63,12 @@ const Index = () => {
     <div className="min-h-screen">
       <Header />
       <main>
+        <BannerCarousel />
         <HorizontalProductList 
           title="Today's Deals" 
           products={todaysDeals}
           viewAllLink="/search?category=deals"
         />
-        <BannerCarousel />
         <HorizontalProductList 
           title="Best Sellers" 
           products={bestSellers}
