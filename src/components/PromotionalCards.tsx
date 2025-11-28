@@ -40,14 +40,14 @@ const PromotionalCards = () => {
   ];
 
   return (
-    <section className="py-6">
+    <section className="py-4">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+        <div className="flex gap-3 overflow-x-auto scrollbar-hidden pb-2">
           {promos.map((promo, index) => (
             <Link
               key={index}
               to={promo.link}
-              className={`${promo.color} text-white rounded-lg p-6 flex items-center justify-center text-center font-bold text-sm h-32 hover:scale-105 transition-transform duration-300 shadow-lg`}
+              className={`${promo.color} text-white rounded-lg px-6 py-4 flex items-center justify-center text-center font-bold text-sm whitespace-nowrap hover:scale-105 transition-transform duration-300 shadow-lg shrink-0`}
             >
               {promo.title}
             </Link>

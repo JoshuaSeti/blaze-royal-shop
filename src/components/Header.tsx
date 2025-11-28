@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ShoppingCart, Search, User, HelpCircle, ChevronDown } from "lucide-react";
+import { ShoppingCart, Search, HelpCircle, ChevronDown } from "lucide-react";
 import { useNavigate, Link } from "react-router-dom";
 import { useCart } from "@/hooks/useCart";
 import {
@@ -58,24 +58,25 @@ const Header = () => {
                   />
                 </div>
                 <Button 
-                  className="bg-primary hover:bg-primary-hover text-primary-foreground px-8"
+                  className="bg-primary hover:bg-primary-hover text-primary-foreground px-4 lg:px-8"
+                  size="icon"
                   onClick={() => {
                     const input = document.querySelector('input[placeholder*="Search"]') as HTMLInputElement;
                     const q = input?.value.trim();
                     if (q) navigate(`/search?q=${encodeURIComponent(q)}`);
                   }}
                 >
-                  Search
+                  <Search className="h-5 w-5 lg:hidden" />
+                  <span className="hidden lg:inline">Search</span>
                 </Button>
               </div>
             </div>
 
-            {/* Account Dropdown */}
+            {/* Account Dropdown - hidden on mobile, shown on lg+ */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="flex items-center gap-2">
-                  <User className="h-5 w-5" />
-                  <span className="hidden lg:inline">Account</span>
+                <Button variant="ghost" className="hidden lg:flex items-center gap-2">
+                  <span>Account</span>
                   <ChevronDown className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
@@ -95,12 +96,12 @@ const Header = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* Help Dropdown */}
+            {/* Help Dropdown - hidden on mobile, shown on lg+ */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="flex items-center gap-2">
+                <Button variant="ghost" className="hidden lg:flex items-center gap-2">
                   <HelpCircle className="h-5 w-5" />
-                  <span className="hidden lg:inline">Help</span>
+                  <span>Help</span>
                   <ChevronDown className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
