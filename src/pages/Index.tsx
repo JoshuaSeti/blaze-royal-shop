@@ -85,23 +85,32 @@ const Index = () => {
         <PromotionalCards />
 
         {/* Product Sections */}
-        <HorizontalProductList 
-          title="Today's Deals" 
-          products={todaysDeals}
-          viewAllLink="/search?category=deals"
-        />
-        <HorizontalProductList 
-          title="Best Sellers" 
-          products={bestSellers}
-          viewAllLink="/search?category=electronics"
-        />
-        <CategorySelector />
-        <HorizontalProductList 
-          title="Recommended for You" 
-          products={recommended}
-          viewAllLink="/search"
-        />
-        <BrandSelector />
+        {products.length === 0 ? (
+          <div className="container mx-auto px-4 py-12 text-center">
+            <p className="text-muted-foreground text-lg">No products available yet.</p>
+            <p className="text-sm text-muted-foreground mt-2">Vendors can add products from their dashboard.</p>
+          </div>
+        ) : (
+          <>
+            <HorizontalProductList 
+              title="Today's Deals" 
+              products={todaysDeals}
+              viewAllLink="/search?category=deals"
+            />
+            <HorizontalProductList 
+              title="Best Sellers" 
+              products={bestSellers}
+              viewAllLink="/search?category=electronics"
+            />
+            <CategorySelector />
+            <HorizontalProductList 
+              title="Recommended for You" 
+              products={recommended}
+              viewAllLink="/search"
+            />
+            <BrandSelector />
+          </>
+        )}
       </main>
       <Footer />
     </div>
