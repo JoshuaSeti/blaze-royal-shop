@@ -53,7 +53,7 @@ const AddProductForm = ({ onProductAdded }: AddProductFormProps) => {
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from("products")
         .insert([{
           vendor_id: user.id,
@@ -64,11 +64,22 @@ const AddProductForm = ({ onProductAdded }: AddProductFormProps) => {
           stock_quantity: parseInt(productData.stock_quantity),
           image_url: productData.image_url || null,
           is_active: true
-        }]);
+        }])
+        .select()
+        .single();
 
-      if (error) throw error;
+      if (error) {
+        console.error("Supabase error:", error);
+        if (error.code === '42501') {
+          toast.error("Permission denied. Make sure you're logged in as a vendor.");
+        } else {
+          toast.error(`Failed to add product: ${error.message}`);
+        }
+        return;
+      }
       
-      toast.success("Product added successfully!");
+      console.log("Product added successfully:", data);
+      toast.success("Product added successfully! It will appear on the homepage.");
       setOpen(false);
       setProductData({
         name: "",
@@ -81,9 +92,9 @@ const AddProductForm = ({ onProductAdded }: AddProductFormProps) => {
       
       if (onProductAdded) onProductAdded();
       
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error adding product:", error);
-      toast.error("Failed to add product. Please try again.");
+      toast.error(error?.message || "Failed to add product. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
