@@ -139,7 +139,7 @@ All colors MUST be HSL.
 
   /* Premium Typography */
   h1, h2, h3, h4, h5, h6 {
-    @apply font-semibold tracking-tight;
+    @apply font-heading font-semibold tracking-tight uppercase;
   }
   
   h1 { @apply text-4xl lg:text-5xl xl:text-6xl; }
