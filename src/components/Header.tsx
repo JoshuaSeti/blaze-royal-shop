@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ShoppingCart, Search, HelpCircle, ChevronDown } from "lucide-react";
+import gulaLogo from "@/assets/gula-logo.png";
 import { useNavigate, Link } from "react-router-dom";
 import { useCart } from "@/hooks/useCart";
 import {
@@ -32,12 +33,12 @@ const Header = () => {
       </div>
 
       {/* Main Header */}
-      <header className="glass-card border-b-0 shadow-sm sticky top-0 z-50">
+      <header className="bg-[#ff7e20] shadow-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center gap-6">
             {/* Logo */}
-            <Link to="/" className="text-2xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent whitespace-nowrap">
-              ShopHub
+            <Link to="/" className="shrink-0">
+              <img src={gulaLogo} alt="Gula" className="h-10 w-auto" />
             </Link>
             
             {/* Search Bar with Button */}
