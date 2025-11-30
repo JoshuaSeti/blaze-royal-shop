@@ -5,7 +5,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold">ShopHub</h3>
+            <h3 className="text-2xl font-bold">Gula</h3>
             <p className="text-secondary-foreground/80">
               Your trusted partner for premium products and exceptional shopping experience.
             </p>
@@ -37,7 +37,7 @@ const Footer = () => {
           <div className="space-y-4">
             <h4 className="text-lg font-semibold">Contact Us</h4>
             <div className="space-y-2 text-secondary-foreground/80">
-              <p>Email: support@shophub.com</p>
+              <p>Email: support@gula.com</p>
               <p>Phone: (555) 123-4567</p>
               <p>Mon-Fri: 9AM-6PM EST</p>
             </div>
@@ -46,7 +46,7 @@ const Footer = () => {
 
         <div className="border-t border-secondary-foreground/20 mt-8 pt-8 text-center">
           <p className="text-secondary-foreground/80">
-            © 2024 ShopHub. All rights reserved.
+            © 2024 Gula. All rights reserved.
           </p>
         </div>
       </div>
