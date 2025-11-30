@@ -2,7 +2,6 @@ import Header from "@/components/Header";
 import PromotionalBanner from "@/components/PromotionalBanner";
 import BannerCarousel from "@/components/BannerCarousel";
 import LeftSidebar from "@/components/LeftSidebar";
-import RightSidebar from "@/components/RightSidebar";
 import PromotionalCards from "@/components/PromotionalCards";
 import CategorySelector from "@/components/CategorySelector";
 import BrandSelector from "@/components/BrandSelector";
@@ -76,8 +75,6 @@ const Index = () => {
             <div className="flex-1">
               <BannerCarousel />
             </div>
-            
-            <RightSidebar />
           </div>
         </div>
 
