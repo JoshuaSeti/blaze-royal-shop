@@ -16,14 +16,14 @@ const RightSidebar = () => {
         </div>
       </div>
 
-      {/* Sell on ShopHub */}
+      {/* Sell on Gula */}
       <Link to="/vendor-auth">
         <div className="glass-card rounded-lg p-4 flex items-center gap-3 hover:bg-accent transition-colors cursor-pointer">
           <div className="bg-primary/10 p-3 rounded-full">
             <Store className="h-6 w-6 text-primary" />
           </div>
           <div>
-            <div className="font-semibold text-sm">Sell on ShopHub</div>
+            <div className="font-semibold text-sm">Sell on Gula</div>
           </div>
         </div>
       </Link>

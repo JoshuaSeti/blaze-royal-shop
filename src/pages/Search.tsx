@@ -21,12 +21,12 @@ const Search = () => {
   const [results, setResults] = useState<Product[]>([]);
 
   useEffect(() => {
-    const title = q ? `Search results for "${q}" | ShopHub` : "Search Products | ShopHub";
+    const title = q ? `Search results for "${q}" | Gula` : "Search Products | Gula";
     document.title = title;
 
     const descContent = q
-      ? `Find products matching \"${q}\". Browse categories, compare prices, and shop now on ShopHub.`
-      : "Search products on ShopHub. Discover trending items across all categories.";
+      ? `Find products matching \"${q}\". Browse categories, compare prices, and shop now on Gula.`
+      : "Search products on Gula. Discover trending items across all categories.";
 
     let desc = document.querySelector('meta[name="description"]');
     if (!desc) {

@@ -22,7 +22,7 @@ const Header = () => {
         <div className="container mx-auto px-4 py-2">
           <div className="flex items-center justify-between text-sm">
             <Link to="/vendor-auth" className="text-primary hover:underline flex items-center gap-1">
-              <span>🛍️</span> Sell on ShopHub
+              <span>🛍️</span> Sell on Gula
             </Link>
             <div className="flex items-center gap-4 text-muted-foreground">
               <span>Payment Options</span>
@@ -59,7 +59,7 @@ const Header = () => {
                   />
                 </div>
                 <Button 
-                  className="bg-primary hover:bg-primary-hover text-primary-foreground px-4 lg:px-8"
+                  className="hidden sm:flex bg-primary hover:bg-primary-hover text-primary-foreground px-4 lg:px-8"
                   size="icon"
                   onClick={() => {
                     const input = document.querySelector('input[placeholder*="Search"]') as HTMLInputElement;
