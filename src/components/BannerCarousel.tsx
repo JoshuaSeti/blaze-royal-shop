@@ -47,7 +47,7 @@ const BannerCarousel = () => {
         <CarouselContent>
           {banners.map((banner) => (
             <CarouselItem key={banner.id}>
-              <div className="relative h-96 lg:h-[500px] overflow-hidden rounded-lg">
+              <div className="relative aspect-[16/9] overflow-hidden rounded-lg">
                 <img 
                   src={banner.image} 
                   alt={banner.title}

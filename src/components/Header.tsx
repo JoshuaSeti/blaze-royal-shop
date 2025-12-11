@@ -35,10 +35,10 @@ const Header = () => {
       {/* Main Header */}
       <header className="bg-[#ff7e20] shadow-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-2 sm:gap-4 lg:gap-6">
             {/* Logo */}
             <Link to="/" className="shrink-0">
-              <img src={gulaLogo} alt="Gula" className="h-10 w-auto" />
+              <img src={gulaLogo} alt="Gula" className="h-8 sm:h-10 w-auto" />
             </Link>
             
             {/* Search Bar with Button */}
