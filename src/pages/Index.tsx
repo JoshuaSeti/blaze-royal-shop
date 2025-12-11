@@ -63,14 +63,17 @@ const Index = () => {
   const recommended = homeProducts.length > 0 ? homeProducts : recommendedProducts;
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-20 md:pb-0">
       <PromotionalBanner />
       <Header />
       <main>
         {/* Main Layout with Sidebars */}
-        <div className="container mx-auto px-4 py-6">
+        <div className="container mx-auto px-4 py-3 sm:py-6">
           <div className="flex gap-6">
-            <LeftSidebar />
+            {/* Hide LeftSidebar on mobile */}
+            <div className="hidden lg:block">
+              <LeftSidebar />
+            </div>
             
             <div className="flex-1">
               <BannerCarousel />
