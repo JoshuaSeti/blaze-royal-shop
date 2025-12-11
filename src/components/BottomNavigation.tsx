@@ -51,8 +51,8 @@ const BottomNavigation = () => {
   };
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-background/80 backdrop-blur-lg border-t border-border">
-      <div className="flex items-center justify-around px-2 py-2">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-background/95 backdrop-blur-xl border-t border-border shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
+      <div className="flex items-center justify-around px-1 py-1 safe-area-pb">
         {navItems.map((item) => {
           const Icon = item.icon;
           return (
@@ -60,19 +60,25 @@ const BottomNavigation = () => {
               key={item.id}
               onClick={() => handleNavigation(item.path)}
               className={cn(
-                "flex flex-col items-center justify-center p-2 rounded-lg transition-all duration-200 relative min-w-[60px]",
+                "flex flex-col items-center justify-center py-2 px-3 rounded-xl transition-all duration-200 relative min-w-[64px]",
                 item.active
-                  ? "text-primary bg-primary/10"
-                  : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                  ? "text-primary"
+                  : "text-muted-foreground active:scale-95"
               )}
               aria-label={item.label}
             >
-              <div className="relative">
-                <Icon size={20} strokeWidth={item.active ? 2.5 : 2} />
+              {item.active && (
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-1 bg-primary rounded-full" />
+              )}
+              <div className={cn(
+                "relative p-1.5 rounded-lg transition-all duration-200",
+                item.active && "bg-primary/10"
+              )}>
+                <Icon size={22} strokeWidth={item.active ? 2.5 : 1.8} />
               </div>
               <span className={cn(
-                "text-xs mt-1 font-medium transition-all duration-200",
-                item.active ? "text-primary" : "text-muted-foreground"
+                "text-[10px] mt-0.5 font-medium transition-all duration-200",
+                item.active ? "text-primary font-semibold" : "text-muted-foreground"
               )}>
                 {item.label}
               </span>

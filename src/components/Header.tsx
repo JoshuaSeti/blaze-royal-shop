@@ -17,8 +17,8 @@ const Header = () => {
 
   return (
     <>
-      {/* Top Navigation Bar */}
-      <div className="bg-muted/30 border-b border-border/50">
+      {/* Top Navigation Bar - hidden on mobile */}
+      <div className="hidden sm:block bg-muted/30 border-b border-border/50">
         <div className="container mx-auto px-4 py-2">
           <div className="flex items-center justify-between text-sm">
             <Link to="/vendor-auth" className="text-primary hover:underline flex items-center gap-1">
@@ -34,7 +34,7 @@ const Header = () => {
 
       {/* Main Header */}
       <header className="bg-[#ff7e20] shadow-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-3 sm:px-4 py-2.5 sm:py-4">
           <div className="flex items-center gap-2 sm:gap-4 lg:gap-6">
             {/* Logo */}
             <Link to="/" className="shrink-0">
