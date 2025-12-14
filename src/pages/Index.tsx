@@ -7,14 +7,16 @@ import CategorySelector from "@/components/CategorySelector";
 import BrandSelector from "@/components/BrandSelector";
 import SimpleProductList from "@/components/SimpleProductList";
 import PromoBannerCard from "@/components/PromoBannerCard";
+import MobileCategoryNav from "@/components/MobileCategoryNav";
 import Footer from "@/components/Footer";
 import { placeholderProducts } from "@/data/placeholderProducts";
 
 const Index = () => {
   return (
-    <div className="min-h-screen pb-20 md:pb-0">
+    <div className="min-h-screen">
       <PromotionalBanner />
       <Header />
+      <MobileCategoryNav />
       <main>
         {/* Main Layout with Sidebars */}
         <div className="container mx-auto px-4 py-3 sm:py-6">
