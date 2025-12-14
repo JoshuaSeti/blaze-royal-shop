@@ -40,36 +40,39 @@ const Header = () => {
       </div>
 
       {/* Mobile Header */}
-      <header className="sm:hidden bg-secondary sticky top-0 z-50">
+      <header className="sm:hidden bg-[#ff7e20] sticky top-0 z-50">
         {/* Top Row - Menu, Logo, Icons */}
-        <div className="flex items-center justify-between px-4 py-3">
-          {/* Hamburger Menu */}
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="text-white hover:bg-white/10">
-                <Menu className="h-6 w-6" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="left" className="w-72">
-              <SheetHeader>
-                <SheetTitle>Menu</SheetTitle>
-              </SheetHeader>
-              <nav className="mt-6 space-y-4">
-                <Link to="/" className="block py-2 text-foreground hover:text-primary">Home</Link>
-                <Link to="/categories" className="block py-2 text-foreground hover:text-primary">Categories</Link>
-                <Link to="/promotions" className="block py-2 text-foreground hover:text-primary">Deals</Link>
-                <Link to="/order-history" className="block py-2 text-foreground hover:text-primary">My Orders</Link>
-                <Link to="/wishlist" className="block py-2 text-foreground hover:text-primary">Saved Items</Link>
-                <Link to="/help" className="block py-2 text-foreground hover:text-primary">Help</Link>
-                <Link to="/vendor-auth" className="block py-2 text-primary font-medium">Sell on Gula</Link>
-              </nav>
-            </SheetContent>
-          </Sheet>
+        <div className="flex items-center justify-between px-3 py-2.5">
+          {/* Left: Menu + Logo */}
+          <div className="flex items-center gap-2">
+            {/* Hamburger Menu */}
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="text-white hover:bg-white/10 h-9 w-9">
+                  <Menu className="h-5 w-5" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="w-72">
+                <SheetHeader>
+                  <SheetTitle>Menu</SheetTitle>
+                </SheetHeader>
+                <nav className="mt-6 space-y-4">
+                  <Link to="/" className="block py-2 text-foreground hover:text-primary">Home</Link>
+                  <Link to="/categories" className="block py-2 text-foreground hover:text-primary">Categories</Link>
+                  <Link to="/promotions" className="block py-2 text-foreground hover:text-primary">Deals</Link>
+                  <Link to="/order-history" className="block py-2 text-foreground hover:text-primary">My Orders</Link>
+                  <Link to="/wishlist" className="block py-2 text-foreground hover:text-primary">Saved Items</Link>
+                  <Link to="/help" className="block py-2 text-foreground hover:text-primary">Help</Link>
+                  <Link to="/vendor-auth" className="block py-2 text-primary font-medium">Sell on Gula</Link>
+                </nav>
+              </SheetContent>
+            </Sheet>
 
-          {/* Centered Logo */}
-          <Link to="/" className="absolute left-1/2 -translate-x-1/2">
-            <span className="text-white text-xl font-bold uppercase tracking-wide">Gula</span>
-          </Link>
+            {/* Logo */}
+            <Link to="/">
+              <img src={gulaLogo} alt="Gula" className="h-7 w-auto" />
+            </Link>
+          </div>
 
           {/* Right Icons */}
           <div className="flex items-center gap-1">
