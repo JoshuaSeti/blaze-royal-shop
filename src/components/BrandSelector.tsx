@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import appleLogo from "@/assets/brands/apple-logo.png";
 import nikeLogo from "@/assets/brands/nike-logo.png";
 import adidasLogo from "@/assets/brands/adidas-logo.png";
@@ -6,32 +6,40 @@ import lgLogo from "@/assets/brands/lg-logo.png";
 
 const BrandSelector = () => {
   const brands = [
-    { id: 1, name: "Apple", logo: appleLogo },
-    { id: 2, name: "Samsung", logo: "https://logos-world.net/wp-content/uploads/2020/09/Samsung-Emblem.png" },
-    { id: 3, name: "Nike", logo: nikeLogo },
-    { id: 4, name: "Adidas", logo: adidasLogo },
-    { id: 5, name: "Sony", logo: "https://logos-world.net/wp-content/uploads/2020/06/Sony-Emblem.png" },
-    { id: 6, name: "Dell", logo: "https://logos-world.net/wp-content/uploads/2020/05/Dell-Emblem.png" },
-    { id: 7, name: "HP", logo: "https://logos-world.net/wp-content/uploads/2020/07/HP-Emblem.png" },
-    { id: 8, name: "LG", logo: lgLogo }
+    { id: 1, name: "Apple", logo: appleLogo, link: "/search?brand=apple" },
+    { id: 2, name: "Samsung", logo: "https://logos-world.net/wp-content/uploads/2020/09/Samsung-Emblem.png", link: "/search?brand=samsung" },
+    { id: 3, name: "Nike", logo: nikeLogo, link: "/search?brand=nike" },
+    { id: 4, name: "Adidas", logo: adidasLogo, link: "/search?brand=adidas" },
+    { id: 5, name: "Sony", logo: "https://logos-world.net/wp-content/uploads/2020/06/Sony-Emblem.png", link: "/search?brand=sony" },
+    { id: 6, name: "Dell", logo: "https://logos-world.net/wp-content/uploads/2020/05/Dell-Emblem.png", link: "/search?brand=dell" },
+    { id: 7, name: "HP", logo: "https://logos-world.net/wp-content/uploads/2020/07/HP-Emblem.png", link: "/search?brand=hp" },
+    { id: 8, name: "LG", logo: lgLogo, link: "/search?brand=lg" }
   ];
 
   return (
-    <section className="py-16 bg-gradient-to-r from-accent/50 to-background">
+    <section className="py-8 sm:py-12 bg-background">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-foreground mb-12 text-center">
-          Popular Brands
-        </h2>
+        <div className="flex items-center justify-between mb-6 sm:mb-8">
+          <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground uppercase">
+            Popular Brands
+          </h2>
+          <Link 
+            to="/stores" 
+            className="text-sm text-primary hover:underline font-medium"
+          >
+            View all
+          </Link>
+        </div>
         
         {/* Desktop Grid */}
-        <div className="hidden md:flex flex-wrap justify-center gap-6">
+        <div className="hidden md:grid grid-cols-4 lg:grid-cols-8 gap-4">
           {brands.map((brand) => (
-            <Button
+            <Link
               key={brand.id}
-              variant="secondary"
-              className="glass-card hover:bg-primary hover:text-white w-32 h-32 rounded-full flex-col space-y-2 border-border/50 hover:scale-110 transition-all duration-300 group p-4"
+              to={brand.link}
+              className="group flex flex-col items-center p-4 rounded-xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all duration-300"
             >
-              <div className="w-16 h-16 rounded-full bg-white p-2 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <div className="w-16 h-16 rounded-xl bg-white p-3 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform duration-300">
                 <img 
                   src={brand.logo} 
                   alt={`${brand.name} logo`}
@@ -41,22 +49,24 @@ const BrandSelector = () => {
                   }}
                 />
               </div>
-              <span className="text-sm font-semibold">{brand.name}</span>
-            </Button>
+              <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors">
+                {brand.name}
+              </span>
+            </Link>
           ))}
         </div>
 
         {/* Mobile Horizontal Scroll */}
         <div className="md:hidden">
-          <div className="overflow-x-auto scrollbar-hidden">
-            <div className="flex space-x-4 pb-4 px-4" style={{ width: 'max-content' }}>
+          <div className="overflow-x-auto scrollbar-hidden -mx-4 px-4">
+            <div className="flex gap-3 pb-2" style={{ width: 'max-content' }}>
               {brands.map((brand) => (
-                <Button
+                <Link
                   key={brand.id}
-                  variant="secondary"
-                  className="glass-card hover:bg-primary hover:text-white w-20 h-20 rounded-full flex-col space-y-1 border-border/50 hover:scale-105 transition-all duration-300 group p-2 flex-shrink-0"
+                  to={brand.link}
+                  className="group flex flex-col items-center w-20"
                 >
-                  <div className="w-12 h-12 rounded-full bg-white p-1.5 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-14 h-14 rounded-xl bg-white border border-border/50 p-2 flex items-center justify-center mb-2 group-hover:scale-105 group-hover:border-primary/30 transition-all duration-300 shadow-sm">
                     <img 
                       src={brand.logo} 
                       alt={`${brand.name} logo`}
@@ -66,8 +76,10 @@ const BrandSelector = () => {
                       }}
                     />
                   </div>
-                  <span className="text-xs font-semibold">{brand.name}</span>
-                </Button>
+                  <span className="text-xs font-medium text-foreground text-center">
+                    {brand.name}
+                  </span>
+                </Link>
               ))}
             </div>
           </div>
