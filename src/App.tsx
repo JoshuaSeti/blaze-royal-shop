@@ -42,7 +42,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import DeliveryPolicy from "./pages/DeliveryPolicy";
 import Careers from "./pages/Careers";
 import About from "./pages/About";
-import BottomNavigation from "./components/BottomNavigation";
+
 import Search from "./pages/Search";
 import Stores from "./pages/Stores";
 import PasswordReset from "./pages/PasswordReset";
@@ -65,7 +65,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <div className="min-h-screen pb-16 md:pb-0">
+          <div className="min-h-screen">
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/search" element={<Search />} />
@@ -150,7 +150,7 @@ const App = () => (
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
-            <BottomNavigation />
+            
           </div>
         </BrowserRouter>
       </TooltipProvider>
