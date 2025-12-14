@@ -70,7 +70,7 @@ const Header = () => {
 
             {/* Logo */}
             <Link to="/">
-              <img src={gulaLogo} alt="Gula" className="h-9 w-auto mt-1" />
+              <img src={gulaLogo} alt="Gula" className="h-9 w-auto mt-1 -ml-1" />
             </Link>
           </div>
 
