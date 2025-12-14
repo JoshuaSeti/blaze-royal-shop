@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ShoppingCart, Search, HelpCircle, ChevronDown } from "lucide-react";
+import { ShoppingCart, Search, HelpCircle, ChevronDown, Menu, MapPin, User } from "lucide-react";
 import gulaLogo from "@/assets/gula-logo.png";
 import { useNavigate, Link } from "react-router-dom";
 import { useCart } from "@/hooks/useCart";
@@ -10,6 +10,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 const Header = () => {
   const { cartCount } = useCart();
@@ -32,13 +39,92 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Main Header */}
-      <header className="bg-[#ff7e20] shadow-sm sticky top-0 z-50">
-        <div className="container mx-auto px-3 sm:px-4 py-2.5 sm:py-4">
-          <div className="flex items-center gap-2 sm:gap-4 lg:gap-6">
+      {/* Mobile Header */}
+      <header className="sm:hidden bg-secondary sticky top-0 z-50">
+        {/* Top Row - Menu, Logo, Icons */}
+        <div className="flex items-center justify-between px-4 py-3">
+          {/* Hamburger Menu */}
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="text-white hover:bg-white/10">
+                <Menu className="h-6 w-6" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-72">
+              <SheetHeader>
+                <SheetTitle>Menu</SheetTitle>
+              </SheetHeader>
+              <nav className="mt-6 space-y-4">
+                <Link to="/" className="block py-2 text-foreground hover:text-primary">Home</Link>
+                <Link to="/categories" className="block py-2 text-foreground hover:text-primary">Categories</Link>
+                <Link to="/promotions" className="block py-2 text-foreground hover:text-primary">Deals</Link>
+                <Link to="/order-history" className="block py-2 text-foreground hover:text-primary">My Orders</Link>
+                <Link to="/wishlist" className="block py-2 text-foreground hover:text-primary">Saved Items</Link>
+                <Link to="/help" className="block py-2 text-foreground hover:text-primary">Help</Link>
+                <Link to="/vendor-auth" className="block py-2 text-primary font-medium">Sell on Gula</Link>
+              </nav>
+            </SheetContent>
+          </Sheet>
+
+          {/* Centered Logo */}
+          <Link to="/" className="absolute left-1/2 -translate-x-1/2">
+            <span className="text-white text-xl font-bold uppercase tracking-wide">Gula</span>
+          </Link>
+
+          {/* Right Icons */}
+          <div className="flex items-center gap-1">
+            <Button variant="ghost" size="icon" className="text-white hover:bg-white/10">
+              <MapPin className="h-5 w-5" />
+            </Button>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="text-white hover:bg-white/10"
+              onClick={() => navigate('/auth')}
+            >
+              <User className="h-5 w-5" />
+            </Button>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="relative text-white hover:bg-white/10"
+              onClick={() => navigate('/cart')}
+            >
+              <ShoppingCart className="h-5 w-5" />
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full h-4 w-4 flex items-center justify-center font-bold">
+                  {cartCount}
+                </span>
+              )}
+            </Button>
+          </div>
+        </div>
+
+        {/* Search Bar Row */}
+        <div className="px-4 pb-3">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4" />
+            <Input 
+              placeholder="Search products, stores or brands"
+              className="pl-10 py-2.5 bg-muted/80 border-0 rounded-lg text-sm placeholder:text-muted-foreground"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  const q = (e.currentTarget as HTMLInputElement).value.trim();
+                  if (q) navigate(`/search?q=${encodeURIComponent(q)}`);
+                }
+              }}
+            />
+          </div>
+        </div>
+      </header>
+
+      {/* Desktop Header */}
+      <header className="hidden sm:block bg-[#ff7e20] shadow-sm sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center gap-4 lg:gap-6">
             {/* Logo */}
             <Link to="/" className="shrink-0">
-              <img src={gulaLogo} alt="Gula" className="h-8 sm:h-10 w-auto" />
+              <img src={gulaLogo} alt="Gula" className="h-10 w-auto" />
             </Link>
             
             {/* Search Bar with Button */}
@@ -59,7 +145,7 @@ const Header = () => {
                   />
                 </div>
                 <Button 
-                  className="hidden sm:flex bg-primary hover:bg-primary-hover text-primary-foreground px-4 lg:px-8"
+                  className="flex bg-primary hover:bg-primary-hover text-primary-foreground px-4 lg:px-8"
                   size="icon"
                   onClick={() => {
                     const input = document.querySelector('input[placeholder*="Search"]') as HTMLInputElement;
@@ -73,7 +159,7 @@ const Header = () => {
               </div>
             </div>
 
-            {/* Account Dropdown - hidden on mobile, shown on lg+ */}
+            {/* Account Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="hidden lg:flex items-center gap-2">
@@ -97,7 +183,7 @@ const Header = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* Help Dropdown - hidden on mobile, shown on lg+ */}
+            {/* Help Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="hidden lg:flex items-center gap-2">
