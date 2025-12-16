@@ -19,7 +19,7 @@ const VendorLogin = () => {
   // Redirect if already authenticated
   useEffect(() => {
     if (user) {
-      navigate('/vendor-dashboard');
+      navigate('/vendor');
     }
   }, [user, navigate]);
 
@@ -40,7 +40,7 @@ const VendorLogin = () => {
         title: 'Welcome back!',
         description: 'You have been successfully logged in.',
       });
-      navigate('/vendor-dashboard');
+      navigate('/vendor');
     }
 
     setIsLoading(false);
