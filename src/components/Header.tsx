@@ -63,7 +63,12 @@ const Header = () => {
                   <Link to="/order-history" className="block py-2 text-foreground hover:text-primary">My Orders</Link>
                   <Link to="/wishlist" className="block py-2 text-foreground hover:text-primary">Saved Items</Link>
                   <Link to="/help" className="block py-2 text-foreground hover:text-primary">Help</Link>
-                  <Link to="/vendor-auth" className="block py-2 text-primary font-medium">Sell on Gula</Link>
+                  <div className="border-t border-border pt-4 mt-4">
+                    <p className="text-xs text-muted-foreground mb-2">For Vendors</p>
+                    <Link to="/vendor-login" className="block py-2 text-primary font-medium">Vendor Login</Link>
+                    <Link to="/vendor-dashboard" className="block py-2 text-foreground hover:text-primary">Vendor Dashboard</Link>
+                    <Link to="/vendor-auth" className="block py-2 text-foreground hover:text-primary">Become a Seller</Link>
+                  </div>
                 </nav>
               </SheetContent>
             </Sheet>
@@ -182,6 +187,12 @@ const Header = () => {
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => navigate('/wishlist')}>
                   Saved Items
+                </DropdownMenuItem>
+                <DropdownMenuItem className="text-primary font-medium" onClick={() => navigate('/vendor-login')}>
+                  Vendor Login
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate('/vendor-dashboard')}>
+                  Vendor Dashboard
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
