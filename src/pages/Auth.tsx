@@ -107,8 +107,16 @@ const Auth = () => {
                     placeholder="Enter your password"
                     value={loginForm.password}
                     onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
-                    required
+                  required
                   />
+                </div>
+                <div className="flex justify-end">
+                  <Link 
+                    to="/password-reset" 
+                    className="text-sm text-primary hover:underline"
+                  >
+                    Forgot password?
+                  </Link>
                 </div>
                 <Button type="submit" className="w-full" disabled={isLoading}>
                   {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
