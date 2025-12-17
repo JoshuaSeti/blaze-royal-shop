@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { TrendingUp, DollarSign, Package, Users, ArrowUp, ArrowDown } from 'lucide-react';
+import { TrendingUp, DollarSign, Package, Users, ArrowUp, ArrowDown, Sparkles, Search, BarChart3 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 
@@ -98,6 +98,80 @@ const VendorAnalytics = () => {
             </CardContent>
           </Card>
         </div>
+
+        {/* MarketPulse Insights */}
+        <Card className="mb-8 border-primary/20 bg-gradient-to-br from-background to-primary/5">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Sparkles className="h-5 w-5 text-primary" />
+              MarketPulse™ Insights
+            </CardTitle>
+            <CardDescription>AI-powered market trends and opportunities</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="flex items-start gap-3 p-4 rounded-lg bg-background border">
+                <div className="p-2 rounded-full bg-green-100 text-green-600">
+                  <TrendingUp className="h-4 w-4" />
+                </div>
+                <div>
+                  <p className="font-medium text-sm">Upward trend in price for smartwatches</p>
+                  <p className="text-xs text-muted-foreground mt-1">Consider adjusting pricing strategy</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-3 p-4 rounded-lg bg-background border">
+                <div className="p-2 rounded-full bg-blue-100 text-blue-600">
+                  <Search className="h-4 w-4" />
+                </div>
+                <div>
+                  <p className="font-medium text-sm">iPhone accessory searches up 14% from last month</p>
+                  <p className="text-xs text-muted-foreground mt-1">High demand opportunity</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-3 p-4 rounded-lg bg-background border">
+                <div className="p-2 rounded-full bg-orange-100 text-orange-600">
+                  <BarChart3 className="h-4 w-4" />
+                </div>
+                <div>
+                  <p className="font-medium text-sm">Wireless earbuds category growing 23% YoY</p>
+                  <p className="text-xs text-muted-foreground mt-1">Expand your audio inventory</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-3 p-4 rounded-lg bg-background border">
+                <div className="p-2 rounded-full bg-purple-100 text-purple-600">
+                  <TrendingUp className="h-4 w-4" />
+                </div>
+                <div>
+                  <p className="font-medium text-sm">Laptop bags trending in back-to-school season</p>
+                  <p className="text-xs text-muted-foreground mt-1">Stock up before demand peaks</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-3 p-4 rounded-lg bg-background border">
+                <div className="p-2 rounded-full bg-red-100 text-red-600">
+                  <ArrowDown className="h-4 w-4" />
+                </div>
+                <div>
+                  <p className="font-medium text-sm">USB-A accessories declining in searches</p>
+                  <p className="text-xs text-muted-foreground mt-1">Shift focus to USB-C products</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-3 p-4 rounded-lg bg-background border">
+                <div className="p-2 rounded-full bg-emerald-100 text-emerald-600">
+                  <Sparkles className="h-4 w-4" />
+                </div>
+                <div>
+                  <p className="font-medium text-sm">New trend: MagSafe compatible accessories</p>
+                  <p className="text-xs text-muted-foreground mt-1">Emerging category opportunity</p>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <Card>
