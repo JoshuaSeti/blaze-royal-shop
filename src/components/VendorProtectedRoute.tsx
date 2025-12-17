@@ -9,61 +9,8 @@ interface VendorProtectedRouteProps {
 }
 
 const VendorProtectedRoute = ({ children }: VendorProtectedRouteProps) => {
-  const { user, loading: authLoading } = useAuth();
-  const navigate = useNavigate();
-  const [isVendor, setIsVendor] = useState<boolean | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (authLoading) return;
-
-    if (!user) {
-      navigate('/auth');
-      return;
-    }
-
-    checkVendorStatus();
-  }, [user, authLoading, navigate]);
-
-  const checkVendorStatus = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('is_vendor')
-        .eq('user_id', user!.id)
-        .single();
-
-      if (error) throw error;
-
-      if (data?.is_vendor) {
-        setIsVendor(true);
-      } else {
-        setIsVendor(false);
-        navigate('/');
-      }
-    } catch (error) {
-      console.error('Error checking vendor status:', error);
-      navigate('/');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (authLoading || loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="text-center">
-          <Loader2 className="h-8 w-8 animate-spin mx-auto mb-2" />
-          <p className="text-muted-foreground">Loading...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (!isVendor) {
-    return null;
-  }
-
+  // Temporarily bypassing authentication for development/testing
+  // TODO: Re-enable authentication checks before production
   return <>{children}</>;
 };
 
