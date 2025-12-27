@@ -21,11 +21,12 @@ const Referral = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!user) {
-      navigate('/auth');
-    }
-  }, [user, navigate]);
+  // TODO: Re-enable before production
+  // useEffect(() => {
+  //   if (!user) {
+  //     navigate('/auth');
+  //   }
+  // }, [user, navigate]);
 
   const copyReferralCode = () => {
     navigator.clipboard.writeText(referralCode);
@@ -46,7 +47,8 @@ const Referral = () => {
     }
   };
 
-  if (!user) return null;
+  // TODO: Re-enable before production
+  // if (!user) return null;
 
   return (
     <div className="min-h-screen bg-background">

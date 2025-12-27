@@ -20,11 +20,12 @@ const Wallet = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!user) {
-      navigate('/auth');
-    }
-  }, [user, navigate]);
+  // TODO: Re-enable before production
+  // useEffect(() => {
+  //   if (!user) {
+  //     navigate('/auth');
+  //   }
+  // }, [user, navigate]);
 
   useEffect(() => {
     // Calculate balance from transactions
@@ -36,9 +37,10 @@ const Wallet = () => {
     setBalance(calculatedBalance);
   }, [transactions]);
 
-  if (!user) {
-    return null;
-  }
+  // TODO: Re-enable before production
+  // if (!user) {
+  //   return null;
+  // }
 
   return (
     <div className="min-h-screen bg-background">
