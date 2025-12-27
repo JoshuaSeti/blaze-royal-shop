@@ -37,12 +37,12 @@ const Profile = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  // Redirect if not authenticated
-  useEffect(() => {
-    if (!user) {
-      navigate('/auth');
-    }
-  }, [user, navigate]);
+  // TODO: Re-enable before production
+  // useEffect(() => {
+  //   if (!user) {
+  //     navigate('/auth');
+  //   }
+  // }, [user, navigate]);
 
   useEffect(() => {
     if (user) {
@@ -122,9 +122,12 @@ const Profile = () => {
     navigate('/');
   };
 
-  if (!user || !profile) {
-    return null;
-  }
+  // TODO: Re-enable before production
+  // if (!user || !profile) {
+  //   return null;
+  // }
+  const mockProfile = profile || { full_name: 'Test User', email: 'test@example.com', is_vendor: false, vendor_company_name: null };
+  const mockUser = user || { email: 'test@example.com' };
 
   return (
     <div className="min-h-screen bg-background">
@@ -154,25 +157,25 @@ const Profile = () => {
                 <div className="flex items-start gap-4">
                   <Avatar className="h-16 w-16">
                     <AvatarFallback className="text-lg">
-                      {profile.full_name?.charAt(0) || user.email?.charAt(0) || 'U'}
+                      {mockProfile.full_name?.charAt(0) || mockUser.email?.charAt(0) || 'U'}
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex-1 space-y-2">
                     <div className="flex items-center gap-2">
                       <h2 className="text-xl font-semibold">
-                        {profile.full_name || 'User'}
+                        {mockProfile.full_name || 'User'}
                       </h2>
-                      {profile.is_vendor && (
+                      {mockProfile.is_vendor && (
                         <Badge variant="secondary" className="flex items-center gap-1">
                           <Store className="h-3 w-3" />
                           Vendor
                         </Badge>
                       )}
                     </div>
-                    <p className="text-muted-foreground">{profile.email}</p>
-                    {profile.is_vendor && profile.vendor_company_name && (
+                    <p className="text-muted-foreground">{mockProfile.email}</p>
+                    {mockProfile.is_vendor && mockProfile.vendor_company_name && (
                       <p className="text-sm font-medium">
-                        Company: {profile.vendor_company_name}
+                        Company: {mockProfile.vendor_company_name}
                       </p>
                     )}
                   </div>
@@ -187,7 +190,7 @@ const Profile = () => {
                   </Button>
                 </div>
                 <div className="flex gap-2">
-                  {profile.is_vendor && (
+                  {mockProfile.is_vendor && (
                     <Button asChild variant="outline">
                       <Link to="/vendor">Vendor Dashboard</Link>
                     </Button>

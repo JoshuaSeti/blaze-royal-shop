@@ -29,11 +29,12 @@ const Support = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!user) {
-      navigate('/auth');
-    }
-  }, [user, navigate]);
+  // TODO: Re-enable before production
+  // useEffect(() => {
+  //   if (!user) {
+  //     navigate('/auth');
+  //   }
+  // }, [user, navigate]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -65,7 +66,8 @@ const Support = () => {
     }, 1500);
   };
 
-  if (!user) return null;
+  // TODO: Re-enable before production
+  // if (!user) return null;
 
   return (
     <div className="min-h-screen bg-background">

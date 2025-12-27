@@ -48,11 +48,12 @@ const OrderHistory = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!user) {
-      navigate('/auth');
-    }
-  }, [user, navigate]);
+  // TODO: Re-enable before production
+  // useEffect(() => {
+  //   if (!user) {
+  //     navigate('/auth');
+  //   }
+  // }, [user, navigate]);
 
   const getStatusColor = (status: Order['status']) => {
     switch (status) {
@@ -69,9 +70,10 @@ const OrderHistory = () => {
     }
   };
 
-  if (!user) {
-    return null;
-  }
+  // TODO: Re-enable before production
+  // if (!user) {
+  //   return null;
+  // }
 
   return (
     <div className="min-h-screen bg-background">

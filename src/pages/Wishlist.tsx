@@ -24,12 +24,13 @@ const Wishlist = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
+  // TODO: Re-enable before production
   useEffect(() => {
-    if (!user) {
-      navigate('/auth');
-      return;
-    }
-    fetchWishlist();
+    // if (!user) {
+    //   navigate('/auth');
+    //   return;
+    // }
+    if (user) fetchWishlist();
   }, [user, navigate]);
 
   const fetchWishlist = async () => {
@@ -65,7 +66,8 @@ const Wishlist = () => {
     }
   };
 
-  if (!user) return null;
+  // TODO: Re-enable before production
+  // if (!user) return null;
 
   return (
     <div className="min-h-screen bg-background">

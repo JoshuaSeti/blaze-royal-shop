@@ -17,13 +17,14 @@ const Recommendations = () => {
   const recommendedProducts = products.slice(0, 8);
   const trendingProducts = products.slice(3, 9);
 
-  useEffect(() => {
-    if (!user) {
-      navigate('/auth');
-    }
-  }, [user, navigate]);
+  // TODO: Re-enable before production
+  // useEffect(() => {
+  //   if (!user) {
+  //     navigate('/auth');
+  //   }
+  // }, [user, navigate]);
 
-  if (!user) return null;
+  // if (!user) return null;
 
   return (
     <div className="min-h-screen bg-background">

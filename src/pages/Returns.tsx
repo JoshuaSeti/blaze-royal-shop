@@ -21,11 +21,12 @@ const Returns = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!user) {
-      navigate('/auth');
-    }
-  }, [user, navigate]);
+  // TODO: Re-enable before production
+  // useEffect(() => {
+  //   if (!user) {
+  //     navigate('/auth');
+  //   }
+  // }, [user, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,7 +46,8 @@ const Returns = () => {
     }
   };
 
-  if (!user) return null;
+  // TODO: Re-enable before production
+  // if (!user) return null;
 
   return (
     <div className="min-h-screen bg-background">
