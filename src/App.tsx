@@ -37,6 +37,8 @@ import AdminProducts from "./pages/AdminProducts";
 import AdminDisputes from "./pages/AdminDisputes";
 import AdminCampaigns from "./pages/AdminCampaigns";
 import AdminContent from "./pages/AdminContent";
+import AdminDeliveryZones from "./pages/AdminDeliveryZones";
+import AdminRiders from "./pages/AdminRiders";
 import TermsConditions from "./pages/TermsConditions";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import DeliveryPolicy from "./pages/DeliveryPolicy";
@@ -142,7 +144,8 @@ const App = () => (
               <Route path="/admin/disputes" element={<AdminDisputes />} />
               <Route path="/admin/campaigns" element={<AdminCampaigns />} />
               <Route path="/admin/content" element={<AdminContent />} />
-              <Route path="/terms" element={<TermsConditions />} />
+              <Route path="/admin/delivery-zones" element={<AdminDeliveryZones />} />
+              <Route path="/admin/riders" element={<AdminRiders />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/delivery-policy" element={<DeliveryPolicy />} />
               <Route path="/careers" element={<Careers />} />
