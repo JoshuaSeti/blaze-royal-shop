@@ -49,6 +49,164 @@ export type Database = {
           },
         ]
       }
+      delivery_orders: {
+        Row: {
+          accepted_at: string | null
+          broadcast_at: string | null
+          buyer_id: string
+          created_at: string
+          delivered_at: string | null
+          delivery_address: string
+          delivery_fee: number
+          delivery_instructions: string | null
+          delivery_latitude: number
+          delivery_longitude: number
+          id: string
+          order_id: string
+          picked_up_at: string | null
+          pickup_address: string
+          pickup_instructions: string | null
+          pickup_latitude: number
+          pickup_longitude: number
+          rider_id: string | null
+          status: Database["public"]["Enums"]["delivery_status"] | null
+          updated_at: string
+          vendor_id: string
+          zone_id: string | null
+        }
+        Insert: {
+          accepted_at?: string | null
+          broadcast_at?: string | null
+          buyer_id: string
+          created_at?: string
+          delivered_at?: string | null
+          delivery_address: string
+          delivery_fee?: number
+          delivery_instructions?: string | null
+          delivery_latitude: number
+          delivery_longitude: number
+          id?: string
+          order_id: string
+          picked_up_at?: string | null
+          pickup_address: string
+          pickup_instructions?: string | null
+          pickup_latitude: number
+          pickup_longitude: number
+          rider_id?: string | null
+          status?: Database["public"]["Enums"]["delivery_status"] | null
+          updated_at?: string
+          vendor_id: string
+          zone_id?: string | null
+        }
+        Update: {
+          accepted_at?: string | null
+          broadcast_at?: string | null
+          buyer_id?: string
+          created_at?: string
+          delivered_at?: string | null
+          delivery_address?: string
+          delivery_fee?: number
+          delivery_instructions?: string | null
+          delivery_latitude?: number
+          delivery_longitude?: number
+          id?: string
+          order_id?: string
+          picked_up_at?: string | null
+          pickup_address?: string
+          pickup_instructions?: string | null
+          pickup_latitude?: number
+          pickup_longitude?: number
+          rider_id?: string | null
+          status?: Database["public"]["Enums"]["delivery_status"] | null
+          updated_at?: string
+          vendor_id?: string
+          zone_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "delivery_orders_zone_id_fkey"
+            columns: ["zone_id"]
+            isOneToOne: false
+            referencedRelation: "delivery_zones"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      delivery_zones: {
+        Row: {
+          base_fee: number
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean | null
+          name: string
+          polygon: Json | null
+          updated_at: string
+        }
+        Insert: {
+          base_fee?: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          name: string
+          polygon?: Json | null
+          updated_at?: string
+        }
+        Update: {
+          base_fee?: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          name?: string
+          polygon?: Json | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      order_broadcasts: {
+        Row: {
+          broadcast_at: string
+          delivery_order_id: string
+          id: string
+          responded_at: string | null
+          rider_id: string
+          status: string | null
+        }
+        Insert: {
+          broadcast_at?: string
+          delivery_order_id: string
+          id?: string
+          responded_at?: string | null
+          rider_id: string
+          status?: string | null
+        }
+        Update: {
+          broadcast_at?: string
+          delivery_order_id?: string
+          id?: string
+          responded_at?: string | null
+          rider_id?: string
+          status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_broadcasts_delivery_order_id_fkey"
+            columns: ["delivery_order_id"]
+            isOneToOne: false
+            referencedRelation: "delivery_orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_broadcasts_rider_id_fkey"
+            columns: ["rider_id"]
+            isOneToOne: false
+            referencedRelation: "riders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       order_items: {
         Row: {
           created_at: string
@@ -210,6 +368,134 @@ export type Database = {
         }
         Relationships: []
       }
+      rider_location_history: {
+        Row: {
+          id: string
+          latitude: number
+          longitude: number
+          recorded_at: string
+          rider_id: string
+        }
+        Insert: {
+          id?: string
+          latitude: number
+          longitude: number
+          recorded_at?: string
+          rider_id: string
+        }
+        Update: {
+          id?: string
+          latitude?: number
+          longitude?: number
+          recorded_at?: string
+          rider_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "rider_location_history_rider_id_fkey"
+            columns: ["rider_id"]
+            isOneToOne: false
+            referencedRelation: "riders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      riders: {
+        Row: {
+          created_at: string
+          current_latitude: number | null
+          current_longitude: number | null
+          email: string | null
+          full_name: string
+          id: string
+          is_active: boolean | null
+          is_verified: boolean | null
+          last_location_update: string | null
+          license_plate: string | null
+          phone: string
+          rating: number | null
+          status: Database["public"]["Enums"]["rider_status"] | null
+          total_deliveries: number | null
+          updated_at: string
+          user_id: string
+          vehicle_type: string | null
+        }
+        Insert: {
+          created_at?: string
+          current_latitude?: number | null
+          current_longitude?: number | null
+          email?: string | null
+          full_name: string
+          id?: string
+          is_active?: boolean | null
+          is_verified?: boolean | null
+          last_location_update?: string | null
+          license_plate?: string | null
+          phone: string
+          rating?: number | null
+          status?: Database["public"]["Enums"]["rider_status"] | null
+          total_deliveries?: number | null
+          updated_at?: string
+          user_id: string
+          vehicle_type?: string | null
+        }
+        Update: {
+          created_at?: string
+          current_latitude?: number | null
+          current_longitude?: number | null
+          email?: string | null
+          full_name?: string
+          id?: string
+          is_active?: boolean | null
+          is_verified?: boolean | null
+          last_location_update?: string | null
+          license_plate?: string | null
+          phone?: string
+          rating?: number | null
+          status?: Database["public"]["Enums"]["rider_status"] | null
+          total_deliveries?: number | null
+          updated_at?: string
+          user_id?: string
+          vehicle_type?: string | null
+        }
+        Relationships: []
+      }
+      seller_pickup_locations: {
+        Row: {
+          address: string
+          created_at: string
+          id: string
+          instructions: string | null
+          is_default: boolean | null
+          latitude: number
+          longitude: number
+          updated_at: string
+          vendor_id: string
+        }
+        Insert: {
+          address: string
+          created_at?: string
+          id?: string
+          instructions?: string | null
+          is_default?: boolean | null
+          latitude: number
+          longitude: number
+          updated_at?: string
+          vendor_id: string
+        }
+        Update: {
+          address?: string
+          created_at?: string
+          id?: string
+          instructions?: string | null
+          is_default?: boolean | null
+          latitude?: number
+          longitude?: number
+          updated_at?: string
+          vendor_id?: string
+        }
+        Relationships: []
+      }
       wishlists: {
         Row: {
           created_at: string
@@ -251,7 +537,15 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      delivery_status:
+        | "pending"
+        | "broadcasting"
+        | "accepted"
+        | "picked_up"
+        | "in_transit"
+        | "delivered"
+        | "cancelled"
+      rider_status: "online" | "offline" | "busy"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -378,6 +672,17 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      delivery_status: [
+        "pending",
+        "broadcasting",
+        "accepted",
+        "picked_up",
+        "in_transit",
+        "delivered",
+        "cancelled",
+      ],
+      rider_status: ["online", "offline", "busy"],
+    },
   },
 } as const
