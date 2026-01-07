@@ -38,15 +38,18 @@ export const useDeliveryZones = () => {
   }, []);
 
   // Calculate delivery fee based on coordinates
-  const calculateDeliveryFee = (latitude: number, longitude: number): number => {
+  const calculateDeliveryFee = (latitude: number, longitude: number): { zoneId: string | null; fee: number } => {
     // For now, return a default fee based on zones
     // In production, implement proper polygon containment check
-    if (zones.length === 0) return 500; // Default fee
+    if (zones.length === 0) return { zoneId: null, fee: 500 }; // Default fee
     
     // Simple distance-based zone assignment (placeholder logic)
     // You would implement actual polygon containment check here
     const defaultZone = zones[0];
-    return Number(defaultZone?.base_fee) || 500;
+    return { 
+      zoneId: defaultZone?.id || null, 
+      fee: Number(defaultZone?.base_fee) || 500 
+    };
   };
 
   // Get zone by coordinates

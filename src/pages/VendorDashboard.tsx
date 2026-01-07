@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Upload, Plus, Store, Package } from "lucide-react";
+import { Upload, Plus, Store, Package, Settings, MapPin } from "lucide-react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 
@@ -79,7 +79,7 @@ const VendorDashboard = () => {
             </div>
           </div>
           
-          <div className="flex gap-4">
+          <div className="flex flex-wrap gap-4">
             <Button 
               variant="default"
               className="bg-gradient-to-r from-primary to-primary-hover"
@@ -94,6 +94,14 @@ const VendorDashboard = () => {
             >
               <Package className="h-4 w-4 mr-2" />
               Manage Products
+            </Button>
+            <Button 
+              variant="outline"
+              onClick={() => navigate('/vendor/settings')}
+              className="border-primary/20 hover:bg-primary/5"
+            >
+              <Settings className="h-4 w-4 mr-2" />
+              Settings
             </Button>
           </div>
         </div>
