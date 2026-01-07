@@ -25,7 +25,9 @@ import VendorWithdraw from "./pages/VendorWithdraw";
 import VendorReturns from "./pages/VendorReturns";
 import VendorPromotions from "./pages/VendorPromotions";
 import VendorAnnouncements from "./pages/VendorAnnouncements";
+import VendorSettings from "./pages/VendorSettings";
 import VendorProtectedRoute from "./components/VendorProtectedRoute";
+import TermsConditions from "./pages/TermsConditions";
 import LogisticsLogin from "./pages/LogisticsLogin";
 import LogisticsDashboard from "./pages/LogisticsDashboard";
 import LogisticsEarnings from "./pages/LogisticsEarnings";
@@ -39,7 +41,6 @@ import AdminCampaigns from "./pages/AdminCampaigns";
 import AdminContent from "./pages/AdminContent";
 import AdminDeliveryZones from "./pages/AdminDeliveryZones";
 import AdminRiders from "./pages/AdminRiders";
-import TermsConditions from "./pages/TermsConditions";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import DeliveryPolicy from "./pages/DeliveryPolicy";
 import Careers from "./pages/Careers";
@@ -133,6 +134,11 @@ const App = () => (
                   <VendorAnnouncements />
                 </VendorProtectedRoute>
               } />
+              <Route path="/vendor/settings" element={
+                <VendorProtectedRoute>
+                  <VendorSettings />
+                </VendorProtectedRoute>
+              } />
               <Route path="/logistics-login" element={<LogisticsLogin />} />
               <Route path="/logistics/dashboard" element={<LogisticsDashboard />} />
               <Route path="/logistics/earnings" element={<LogisticsEarnings />} />
@@ -146,6 +152,7 @@ const App = () => (
               <Route path="/admin/content" element={<AdminContent />} />
               <Route path="/admin/delivery-zones" element={<AdminDeliveryZones />} />
               <Route path="/admin/riders" element={<AdminRiders />} />
+              <Route path="/terms" element={<TermsConditions />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/delivery-policy" element={<DeliveryPolicy />} />
               <Route path="/careers" element={<Careers />} />
