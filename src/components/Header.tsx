@@ -62,7 +62,10 @@ const Header = () => {
                   <Link to="/promotions" className="block py-2 text-foreground hover:text-primary">Deals</Link>
                   <Link to="/order-history" className="block py-2 text-foreground hover:text-primary">My Orders</Link>
                   <Link to="/wishlist" className="block py-2 text-foreground hover:text-primary">Saved Items</Link>
-                  <Link to="/help" className="block py-2 text-foreground hover:text-primary">Help</Link>
+                  {/* <Link to="/order-history" className="block py-2 text-foreground hover:text-primary">Order History</Link>
+                  <Link to="/order-history" className="block py-2 text-foreground hover:text-primary">Help</Link>
+                  <Link to="/referral" className="block py-2 text-foreground hover:text-primary">Help</Link>
+                  <Link to="/recommendations" className="block py-2 text-foreground hover:text-primary">Help</Link> */}
                   <div className="border-t border-border pt-4 mt-4">
                     <p className="text-xs text-muted-foreground mb-2">For Vendors</p>
                     <Link to="/vendor-login" className="block py-2 text-primary font-medium">Vendor Login</Link>
@@ -185,15 +188,59 @@ const Header = () => {
                 <DropdownMenuItem onClick={() => navigate('/order-history')}>
                   Orders
                 </DropdownMenuItem>
+                
+                <DropdownMenuItem onClick={() => navigate('/returns')}>
+                  Returns
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate('/referral')}>
+                  Refferal
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate('/recommendations')}>
+                  Recommendations
+                </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => navigate('/wishlist')}>
                   Saved Items
                 </DropdownMenuItem>
+                {/* <DropdownMenuItem onClick={() => navigate('/vendor')}>
+                  Vendor Dashboard
+                </DropdownMenuItem> */}
+                {/* Dashboard
+                Products
+                Orders
+                Analytics
+                Withdrawals
+                Promotions
+                Announcements
+                Returns
+                Support */}
                 <DropdownMenuItem className="text-primary font-medium" onClick={() => navigate('/vendor-login')}>
                   Vendor Login
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => navigate('/vendor')}>
                   Vendor Dashboard
                 </DropdownMenuItem>
+                {/* <DropdownMenuItem onClick={() => navigate('/vendor/orders')}>
+                  Vendor Orders
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate('/vendor/analytics')}>
+                  Vendor Analytics
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate('/vendor/withdrawls')}>
+                  Vendor Withdrawls
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate('/vendor/promotions')}>
+                  Vendor Promotions
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate('/vendor/announcements')}>
+                  Vendor Announcements
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate('/vendor/returns')}>
+                  Vendor Returns
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate('/vendor/support')}>
+                  Vendor Support
+                </DropdownMenuItem> */}
+                
               </DropdownMenuContent>
             </DropdownMenu>
 

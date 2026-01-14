@@ -25,9 +25,7 @@ import VendorWithdraw from "./pages/VendorWithdraw";
 import VendorReturns from "./pages/VendorReturns";
 import VendorPromotions from "./pages/VendorPromotions";
 import VendorAnnouncements from "./pages/VendorAnnouncements";
-import VendorSettings from "./pages/VendorSettings";
 import VendorProtectedRoute from "./components/VendorProtectedRoute";
-import TermsConditions from "./pages/TermsConditions";
 import LogisticsLogin from "./pages/LogisticsLogin";
 import LogisticsDashboard from "./pages/LogisticsDashboard";
 import LogisticsEarnings from "./pages/LogisticsEarnings";
@@ -39,8 +37,7 @@ import AdminProducts from "./pages/AdminProducts";
 import AdminDisputes from "./pages/AdminDisputes";
 import AdminCampaigns from "./pages/AdminCampaigns";
 import AdminContent from "./pages/AdminContent";
-import AdminDeliveryZones from "./pages/AdminDeliveryZones";
-import AdminRiders from "./pages/AdminRiders";
+import TermsConditions from "./pages/TermsConditions";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import DeliveryPolicy from "./pages/DeliveryPolicy";
 import Careers from "./pages/Careers";
@@ -60,6 +57,43 @@ import Promotions from "./pages/Promotions";
 import Blog from "./pages/Blog";
 
 const queryClient = new QueryClient();
+
+// 📂 Secondary / Profile Menu (dropdown or account tab)
+// User-specific, but important.
+// Orders
+// Returns
+// Referral
+// Saved / Recommendations (if personalized)
+// Support / Help Center
+// 🧾 Footer (low-frequency, trust & legal)
+// These should live in the footer, even if you later minimize or collapse it.
+// About
+// Careers
+// Privacy Policy
+// Terms of Service
+// Refund / Return Policy (if informational page)
+// Contact / Support overview
+// Even if you “remove” the footer visually, these links should still exist somewhere for legal and trust reasons.
+// 🛍 Vendor Portal (separate navigation entirely)
+// This is not part of the consumer site nav.
+// Vendor menu:
+// Dashboard
+// Products
+// Orders
+// Analytics
+// Withdrawals
+// Promotions
+// Announcements
+// Returns
+// Support
+// Think Shopify Seller Dashboard, not Amazon homepage.
+// 🚚 Logistics Portal (fully separate app or subdomain)
+// Do NOT mix with consumer UX.
+// Rider login
+// Active deliveries
+// Earnings
+// History
+// Support
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -134,11 +168,6 @@ const App = () => (
                   <VendorAnnouncements />
                 </VendorProtectedRoute>
               } />
-              <Route path="/vendor/settings" element={
-                <VendorProtectedRoute>
-                  <VendorSettings />
-                </VendorProtectedRoute>
-              } />
               <Route path="/logistics-login" element={<LogisticsLogin />} />
               <Route path="/logistics/dashboard" element={<LogisticsDashboard />} />
               <Route path="/logistics/earnings" element={<LogisticsEarnings />} />
@@ -150,8 +179,6 @@ const App = () => (
               <Route path="/admin/disputes" element={<AdminDisputes />} />
               <Route path="/admin/campaigns" element={<AdminCampaigns />} />
               <Route path="/admin/content" element={<AdminContent />} />
-              <Route path="/admin/delivery-zones" element={<AdminDeliveryZones />} />
-              <Route path="/admin/riders" element={<AdminRiders />} />
               <Route path="/terms" element={<TermsConditions />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/delivery-policy" element={<DeliveryPolicy />} />

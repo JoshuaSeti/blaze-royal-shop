@@ -15,6 +15,10 @@ import productPhone from "@/assets/product-phone.jpg";
 import productMouse from "@/assets/product-mouse.jpg";
 import productLaptop from "@/assets/product-laptop.jpg";
 import productWatch from "@/assets/product-watch.jpg";
+import { supabase } from "@/integrations/supabase/client";
+import { useCart } from "@/hooks/useCart";
+import { toast } from "sonner";
+
 
 const mockProducts = [
   { id: 1, image: productHeadphones, name: "Premium Wireless Headphones", price: 299, originalPrice: 399, rating: 4.8, reviews: 324 },
@@ -29,7 +33,8 @@ const Product = () => {
   const { id } = useParams();
   const [quantity, setQuantity] = useState(1);
   const [isFavorite, setIsFavorite] = useState(false);
-
+  const { cartItems, loading, addToCart, updateCartItemQuantity, removeFromCart, cartTotal } = useCart();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   // Find product by ID or default to first product
   const product = mockProducts.find(p => p.id === parseInt(id || "1")) || mockProducts[0];
   
@@ -39,6 +44,28 @@ const Product = () => {
   const handleQuantityChange = (change: number) => {
     setQuantity(Math.max(1, quantity + change));
   };
+  const handleAddToCart = async () => {
+  setIsSubmitting(true);
+  try {
+    // Note: ensure product.id is a string that exists in your DB
+    await addToCart("da9fe44d-d7c0-47a4-951e-202dc0884d8d", quantity);
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
+  // const AddtoCart = async () => {
+  //   setIsSubmitting(true)
+  //   try {
+  //     const {data, error} = await supabase.from("cart_items").insert(cartItems)
+  //     if (error) throw error;
+  //     toast.message("Successful")
+  //   } catch (error) {
+  //     toast.error(`${error}`)
+  //   } finally {setIsSubmitting(false)}
+    
+  // }
+  
 
   return (
     <div className="min-h-screen bg-background">
@@ -131,18 +158,15 @@ const Product = () => {
               </div>
 
               <div className="flex gap-4">
-                <Button size="lg" className="flex-1">
-                  <ShoppingCart className="mr-2 h-5 w-5" />
-                  Add to Cart - ${product.price * quantity}
-                </Button>
                 <Button 
-                  variant={isFavorite ? "default" : "outline"} 
-                  size="lg"
-                  onClick={() => setIsFavorite(!isFavorite)}
-                  className="px-4"
-                >
-                  <Heart className={`h-5 w-5 ${isFavorite ? 'fill-current' : ''}`} />
-                </Button>
+  disabled={isSubmitting} 
+  onClick={handleAddToCart} // Use the wrapper function
+  size="lg" 
+  className="flex-1"
+>
+  <ShoppingCart className="mr-2 h-5 w-5" />
+  {isSubmitting ? "Adding..." : `Add to Cart $${product.price * quantity}`}
+</Button>
               </div>
             </div>
           </div>

@@ -4,9 +4,13 @@ import { Separator } from "@/components/ui/separator";
 import { Trash2, Plus, Minus, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useCart } from "@/hooks/useCart";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const Cart = () => {
-  const { cartItems, loading, updateCartItemQuantity, removeFromCart, cartTotal } = useCart();
+  const { cartItems, loading,addToCart, updateCartItemQuantity, removeFromCart, cartTotal } = useCart();
+
+  
 
   const shipping = 9.99;
   const tax = cartTotal * 0.08;

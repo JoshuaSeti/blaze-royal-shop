@@ -19,6 +19,7 @@ export interface Product {
 export const useProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  
 
   const fetchProducts = async () => {
     try {
@@ -31,7 +32,7 @@ export const useProducts = () => {
       if (error) throw error;
       setProducts(data || []);
     } catch (error) {
-      console.error("Error fetching products:", error);
+      toast.error("Error fetching products:", error);
       toast.error("Failed to load products");
     } finally {
       setLoading(false);

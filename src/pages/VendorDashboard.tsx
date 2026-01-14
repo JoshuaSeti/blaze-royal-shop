@@ -7,9 +7,12 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Upload, Plus, Store, Package, Settings, MapPin } from "lucide-react";
+import { Upload, Plus, Store, Package } from "lucide-react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { VendorLayout } from "@/components/VendorLayout";
+// import { toast } from 'react-hot-toast';
 
 interface ProductFormData {
   name: string;
@@ -47,26 +50,79 @@ const VendorDashboard = () => {
     setSelectedImages(prev => prev.filter((_, i) => i !== index));
   };
 
-  const onSubmit = async (data: ProductFormData) => {
-    setIsSubmitting(true);
-    
-    try {
-      // Here you would typically upload images to storage and save product data
-      // For now, we'll just simulate the process
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      toast.success("Product added successfully!");
-      form.reset();
-      setSelectedImages([]);
-    } catch (error) {
-      toast.error("Failed to add product. Please try again.");
-    } finally {
-      setIsSubmitting(false);
+   // or your preferred toast library
+
+const onSubmit = async (formData: ProductFormData) => {
+  setIsSubmitting(true);
+
+  // We wrap the whole logic in a toast.promise to give the user immediate feedback
+  const saveProductAction = async () => {
+    const imageUrls: string[] = [];
+
+    // 1. Handle Image Uploads
+    if (selectedImages.length > 0) {
+      for (const file of selectedImages) {
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${crypto.randomUUID()}.${fileExt}`;
+        const filePath = `product-images/${fileName}`;
+
+        const { error: uploadError } = await supabase.storage
+          .from('product_images')
+          .upload(filePath, file);
+
+        // Throw the error so the toast.promise catches it
+        if (uploadError) throw new Error(`Upload failed: ${uploadError.message}`);
+
+        const { data: urlData } = supabase.storage
+          .from('product_images')
+          .getPublicUrl(filePath);
+          
+        imageUrls.push(urlData.publicUrl);
+      }
     }
+
+    // 2. Get current user
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    if (userError || !user) throw new Error("You must be logged in to add products");
+
+    // 3. Save Product Data
+    const { error } = await supabase
+      .from('products')
+      .insert({
+        name: formData.name,
+        price: Number(formData.price), // Ensure it's a number for the DB
+        stock_quantity: Number(formData.quantity),
+        category: formData.category,
+        description: formData.description,
+        image_url: imageUrls[0] || null,
+        vendor_id: user.id,
+      });
+
+    if (error) throw new Error(`Database error: ${error.message}`);
+    
+    return "Product listed successfully!";
   };
 
+  try {
+    // This triggers the loading toast and waits for success/error
+    await toast.promise(saveProductAction(), {
+      loading: 'Uploading product details...',
+      success: (msg) => msg,
+      error: (err) => `${err.message}`,
+    });
+    
+    // Optional: Reset form or redirect here on success
+  } catch (err) {
+    // The error is already handled by toast.promise
+    console.error("Submission crash:", err);
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
+    <VendorLayout>
+      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5">
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-4">
@@ -79,7 +135,7 @@ const VendorDashboard = () => {
             </div>
           </div>
           
-          <div className="flex flex-wrap gap-4">
+          <div className="flex gap-4">
             <Button 
               variant="default"
               className="bg-gradient-to-r from-primary to-primary-hover"
@@ -94,14 +150,6 @@ const VendorDashboard = () => {
             >
               <Package className="h-4 w-4 mr-2" />
               Manage Products
-            </Button>
-            <Button 
-              variant="outline"
-              onClick={() => navigate('/vendor/settings')}
-              className="border-primary/20 hover:bg-primary/5"
-            >
-              <Settings className="h-4 w-4 mr-2" />
-              Settings
             </Button>
           </div>
         </div>
@@ -295,6 +343,7 @@ const VendorDashboard = () => {
         </Card>
       </div>
     </div>
+    </VendorLayout>
   );
 };
 

@@ -15,10 +15,10 @@ const Footer = () => {
           <div className="space-y-4">
             <h4 className="text-lg font-semibold">Quick Links</h4>
             <div className="space-y-2">
-              <a href="#" className="block hover:text-accent transition-colors">About Us</a>
+              <a href="http://localhost:8080/about" className="block hover:text-accent transition-colors">About Us</a>
               <a href="#" className="block hover:text-accent transition-colors">Products</a>
               <a href="#" className="block hover:text-accent transition-colors">Contact</a>
-              <a href="#" className="block hover:text-accent transition-colors">Blog</a>
+              <a href="http://localhost:8080/blog" className="block hover:text-accent transition-colors">Blog</a>
             </div>
           </div>
 
@@ -26,10 +26,10 @@ const Footer = () => {
           <div className="space-y-4">
             <h4 className="text-lg font-semibold">Customer Service</h4>
             <div className="space-y-2">
-              <a href="#" className="block hover:text-accent transition-colors">Help Center</a>
-              <a href="#" className="block hover:text-accent transition-colors">Returns</a>
+              <a href="http://localhost:8080/help" className="block hover:text-accent transition-colors">Help Center</a>
+              <a href="http://localhost:8080/returns" className="block hover:text-accent transition-colors">Returns</a>
               <a href="#" className="block hover:text-accent transition-colors">Shipping Info</a>
-              <a href="#" className="block hover:text-accent transition-colors">Track Order</a>
+              <a href="http://localhost:8080/order-tracking" className="block hover:text-accent transition-colors">Track Order</a>
             </div>
           </div>
 

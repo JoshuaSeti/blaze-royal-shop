@@ -7,13 +7,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Separator } from "@/components/ui/separator";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { CreditCard, Truck, Smartphone, MapPin } from "lucide-react";
+import { CreditCard, Truck, Smartphone } from "lucide-react";
 import { useCart } from "@/hooks/useCart";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
-import DeliveryLocationPicker from "@/components/DeliveryLocationPicker";
 
 const Checkout = () => {
   const [paymentMethod, setPaymentMethod] = useState("cod");
@@ -26,13 +25,6 @@ const Checkout = () => {
     city: "",
     postalCode: "",
   });
-  const [deliveryLocation, setDeliveryLocation] = useState<{
-    address: string;
-    latitude: number;
-    longitude: number;
-    zoneId: string | null;
-    deliveryFee: number;
-  } | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   
   const { cartItems, cartTotal, clearCart } = useCart();
@@ -78,7 +70,7 @@ const Checkout = () => {
       // Create order items
       const orderItems = cartItems.map(item => ({
         order_id: order.id,
-        product_id: item.product_id,
+        product_id: item.product_id,//how do i get a 
         quantity: item.quantity,
         price: item.products.price
       }));
@@ -103,7 +95,7 @@ const Checkout = () => {
     }
   };
 
-  const shipping = deliveryLocation?.deliveryFee ?? 25;
+  const shipping = 25;
   const total = cartTotal + shipping;
 
   return (
@@ -211,32 +203,6 @@ const Checkout = () => {
                   </form>
                 </CardContent>
               </Card>
-
-              {/* Delivery Location Map */}
-              <DeliveryLocationPicker
-                onLocationSelect={(location) => {
-                  setDeliveryLocation(location);
-                  setDeliveryDetails(prev => ({
-                    ...prev,
-                    address: location.address,
-                  }));
-                }}
-              />
-
-              {deliveryLocation && (
-                <Card className="border-primary">
-                  <CardContent className="pt-4">
-                    <div className="flex items-center gap-2 text-primary mb-2">
-                      <MapPin className="h-4 w-4" />
-                      <span className="font-medium">Delivery Location Set</span>
-                    </div>
-                    <p className="text-sm text-muted-foreground">{deliveryLocation.address}</p>
-                    <p className="text-sm font-medium mt-2">
-                      Delivery Fee: K{deliveryLocation.deliveryFee.toFixed(2)}
-                    </p>
-                  </CardContent>
-                </Card>
-              )}
 
               {/* Payment Methods */}
               <Card>
