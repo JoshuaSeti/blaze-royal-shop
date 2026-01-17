@@ -51,6 +51,7 @@ import Stores from "./pages/Stores";
 import StorePage from "./pages/StorePage";
 import ExampleProduct from "./pages/ExampleProduct";
 import ExampleStore from "./pages/ExampleStore";
+import Messages from "./pages/Messages";
 import PasswordReset from "./pages/PasswordReset";
 import Wishlist from "./pages/Wishlist";
 import Recommendations from "./pages/Recommendations";
@@ -79,6 +80,7 @@ const App = () => (
               <Route path="/store/:vendorId" element={<StorePage />} />
               <Route path="/example-product" element={<ExampleProduct />} />
               <Route path="/example-store" element={<ExampleStore />} />
+              <Route path="/messages" element={<Messages />} />
               <Route path="/product/:id" element={<Product />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/checkout" element={<Checkout />} />

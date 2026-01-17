@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Store, Package, Star, Calendar, ChevronLeft, Search, MessageCircle, Heart, Users } from "lucide-react";
+import { toast } from "sonner";
 
 // Example store data
 const exampleStore = {
@@ -41,6 +42,7 @@ const exampleProducts = [
 ];
 
 const ExampleStore = () => {
+  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState("");
   const [isFollowing, setIsFollowing] = useState(false);
@@ -138,7 +140,14 @@ const ExampleStore = () => {
                       <Heart className={`mr-2 h-4 w-4 ${isFollowing ? "fill-current" : ""}`} />
                       {isFollowing ? "Following" : "Follow"}
                     </Button>
-                    <Button variant="outline" className="flex-1 md:flex-none">
+                    <Button 
+                      variant="outline" 
+                      className="flex-1 md:flex-none"
+                      onClick={() => {
+                        toast.info("Sign in to chat with this seller");
+                        navigate("/messages");
+                      }}
+                    >
                       <MessageCircle className="mr-2 h-4 w-4" />
                       Chat
                     </Button>
