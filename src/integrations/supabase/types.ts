@@ -14,6 +14,94 @@ export type Database = {
   }
   public: {
     Tables: {
+      auction_bids: {
+        Row: {
+          auction_id: string
+          bid_amount: number
+          bidder_id: string
+          created_at: string
+          id: string
+        }
+        Insert: {
+          auction_id: string
+          bid_amount: number
+          bidder_id: string
+          created_at?: string
+          id?: string
+        }
+        Update: {
+          auction_id?: string
+          bid_amount?: number
+          bidder_id?: string
+          created_at?: string
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "auction_bids_auction_id_fkey"
+            columns: ["auction_id"]
+            isOneToOne: false
+            referencedRelation: "auctions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      auctions: {
+        Row: {
+          created_at: string
+          current_price: number
+          end_time: string
+          id: string
+          min_bid_increment: number
+          product_id: string
+          reserve_price: number | null
+          start_time: string
+          starting_price: number
+          status: string
+          updated_at: string
+          vendor_id: string
+          winner_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          current_price: number
+          end_time: string
+          id?: string
+          min_bid_increment?: number
+          product_id: string
+          reserve_price?: number | null
+          start_time?: string
+          starting_price: number
+          status?: string
+          updated_at?: string
+          vendor_id: string
+          winner_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          current_price?: number
+          end_time?: string
+          id?: string
+          min_bid_increment?: number
+          product_id?: string
+          reserve_price?: number | null
+          start_time?: string
+          starting_price?: number
+          status?: string
+          updated_at?: string
+          vendor_id?: string
+          winner_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "auctions_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       cart_items: {
         Row: {
           created_at: string
@@ -363,10 +451,15 @@ export type Database = {
           category: string
           created_at: string
           description: string | null
+          discount_end_date: string | null
+          discount_percent: number | null
+          discount_start_date: string | null
           id: string
           image_url: string | null
           is_active: boolean | null
+          is_auction: boolean | null
           name: string
+          original_price: number | null
           price: number
           stock_quantity: number | null
           updated_at: string
@@ -376,10 +469,15 @@ export type Database = {
           category: string
           created_at?: string
           description?: string | null
+          discount_end_date?: string | null
+          discount_percent?: number | null
+          discount_start_date?: string | null
           id?: string
           image_url?: string | null
           is_active?: boolean | null
+          is_auction?: boolean | null
           name: string
+          original_price?: number | null
           price: number
           stock_quantity?: number | null
           updated_at?: string
@@ -389,10 +487,15 @@ export type Database = {
           category?: string
           created_at?: string
           description?: string | null
+          discount_end_date?: string | null
+          discount_percent?: number | null
+          discount_start_date?: string | null
           id?: string
           image_url?: string | null
           is_active?: boolean | null
+          is_auction?: boolean | null
           name?: string
+          original_price?: number | null
           price?: number
           stock_quantity?: number | null
           updated_at?: string
@@ -444,6 +547,182 @@ export type Database = {
           updated_at?: string
           user_id?: string
           vendor_company_name?: string | null
+        }
+        Relationships: []
+      }
+      promocode_usage: {
+        Row: {
+          discount_applied: number | null
+          id: string
+          order_id: string | null
+          promocode_id: string
+          used_at: string
+          user_id: string
+        }
+        Insert: {
+          discount_applied?: number | null
+          id?: string
+          order_id?: string | null
+          promocode_id: string
+          used_at?: string
+          user_id: string
+        }
+        Update: {
+          discount_applied?: number | null
+          id?: string
+          order_id?: string | null
+          promocode_id?: string
+          used_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "promocode_usage_promocode_id_fkey"
+            columns: ["promocode_id"]
+            isOneToOne: false
+            referencedRelation: "promocodes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      promocodes: {
+        Row: {
+          benefit_type: string
+          benefit_value: number | null
+          code: string
+          created_at: string
+          end_date: string | null
+          id: string
+          influencer_name: string | null
+          influencer_pin: string | null
+          is_active: boolean | null
+          max_uses: number | null
+          min_order_amount: number | null
+          product_ids: string[] | null
+          start_date: string
+          updated_at: string
+          uses_count: number | null
+          vendor_id: string
+        }
+        Insert: {
+          benefit_type: string
+          benefit_value?: number | null
+          code: string
+          created_at?: string
+          end_date?: string | null
+          id?: string
+          influencer_name?: string | null
+          influencer_pin?: string | null
+          is_active?: boolean | null
+          max_uses?: number | null
+          min_order_amount?: number | null
+          product_ids?: string[] | null
+          start_date?: string
+          updated_at?: string
+          uses_count?: number | null
+          vendor_id: string
+        }
+        Update: {
+          benefit_type?: string
+          benefit_value?: number | null
+          code?: string
+          created_at?: string
+          end_date?: string | null
+          id?: string
+          influencer_name?: string | null
+          influencer_pin?: string | null
+          is_active?: boolean | null
+          max_uses?: number | null
+          min_order_amount?: number | null
+          product_ids?: string[] | null
+          start_date?: string
+          updated_at?: string
+          uses_count?: number | null
+          vendor_id?: string
+        }
+        Relationships: []
+      }
+      promotion_campaign_products: {
+        Row: {
+          campaign_id: string
+          id: string
+          joined_at: string
+          product_id: string
+          vendor_id: string
+        }
+        Insert: {
+          campaign_id: string
+          id?: string
+          joined_at?: string
+          product_id: string
+          vendor_id: string
+        }
+        Update: {
+          campaign_id?: string
+          id?: string
+          joined_at?: string
+          product_id?: string
+          vendor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "promotion_campaign_products_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "promotion_campaigns"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "promotion_campaign_products_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      promotion_campaigns: {
+        Row: {
+          banner_url: string | null
+          created_at: string
+          created_by: string | null
+          description: string | null
+          discount_type: string | null
+          discount_value: number | null
+          end_date: string
+          id: string
+          name: string
+          start_date: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          banner_url?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          discount_type?: string | null
+          discount_value?: number | null
+          end_date: string
+          id?: string
+          name: string
+          start_date: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          banner_url?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          discount_type?: string | null
+          discount_value?: number | null
+          end_date?: string
+          id?: string
+          name?: string
+          start_date?: string
+          status?: string
+          updated_at?: string
         }
         Relationships: []
       }
