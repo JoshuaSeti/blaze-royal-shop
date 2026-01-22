@@ -174,7 +174,6 @@ const PromotionPage = () => {
                   name={cp.product.name}
                   price={cp.product.price}
                   originalPrice={cp.product.original_price || undefined}
-                  discount={cp.product.discount_percent || undefined}
                   rating={4.5}
                   reviews={0}
                 />

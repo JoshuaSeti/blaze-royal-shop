@@ -14,6 +14,11 @@ export interface Product {
   is_active: boolean;
   created_at: string;
   updated_at: string;
+  original_price: number | null;
+  discount_percent: number | null;
+  discount_start_date: string | null;
+  discount_end_date: string | null;
+  is_auction: boolean | null;
 }
 
 export const useProducts = () => {
