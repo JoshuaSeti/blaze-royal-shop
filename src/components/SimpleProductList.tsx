@@ -1,7 +1,8 @@
-import SimpleProductCard from "./SimpleProductCard";
+import ProductCard from "./ProductCard";
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 
 interface SimpleProduct {
   id: string;
@@ -29,11 +30,13 @@ const SimpleProductList = ({ title, products, viewAllLink }: SimpleProductListPr
         <div className="flex justify-between items-center mb-4 sm:mb-6">
           <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground uppercase">{title}</h2>
           {viewAllLink && (
-            <Button variant="ghost" className="text-primary hover:text-primary-hover font-semibold hover:bg-primary/5 rounded-full px-2 sm:px-4 text-sm">
-              <span className="hidden sm:inline">View All</span>
-              <span className="sm:hidden">All</span>
-              <ChevronRight className="ml-1 h-4 w-4" />
-            </Button>
+            <Link to={viewAllLink}>
+              <Button variant="ghost" className="text-primary hover:text-primary-hover font-semibold hover:bg-primary/5 rounded-full px-2 sm:px-4 text-sm">
+                <span className="hidden sm:inline">View All</span>
+                <span className="sm:hidden">All</span>
+                <ChevronRight className="ml-1 h-4 w-4" />
+              </Button>
+            </Link>
           )}
         </div>
         
@@ -44,8 +47,16 @@ const SimpleProductList = ({ title, products, viewAllLink }: SimpleProductListPr
         >
           <div className="flex gap-3 sm:gap-4 pb-2" style={{ width: 'max-content' }}>
             {products.map((product) => (
-              <div key={product.id} className="w-36 sm:w-44 md:w-52 flex-shrink-0">
-                <SimpleProductCard {...product} />
+              <div key={product.id} className="w-48 sm:w-56 md:w-64 flex-shrink-0">
+                <ProductCard
+                  id={product.id}
+                  image={product.image}
+                  name={product.name}
+                  price={product.price}
+                  originalPrice={product.originalPrice}
+                  rating={4}
+                  reviews={Math.floor(Math.random() * 50) + 10}
+                />
               </div>
             ))}
           </div>
