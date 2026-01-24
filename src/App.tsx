@@ -67,6 +67,8 @@ import Reviews from "./pages/Reviews";
 import Referral from "./pages/Referral";
 import Promotions from "./pages/Promotions";
 import Blog from "./pages/Blog";
+import Auctions from "./pages/Auctions";
+import AuctionDetail from "./pages/AuctionDetail";
 
 const queryClient = new QueryClient();
 
@@ -108,6 +110,8 @@ const App = () => (
               <Route path="/promotions" element={<Promotions />} />
               <Route path="/promotions/:id" element={<PromotionPage />} />
               <Route path="/influencer-tracking" element={<InfluencerTracking />} />
+              <Route path="/auctions" element={<Auctions />} />
+              <Route path="/auctions/:id" element={<AuctionDetail />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/vendor" element={
                 <VendorProtectedRoute>
