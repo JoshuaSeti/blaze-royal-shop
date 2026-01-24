@@ -243,9 +243,23 @@ const Product = () => {
           <div className="lg:col-span-2 order-4">
             <Card className="sticky top-4">
               <CardContent className="p-4 space-y-4">
-                {/* Price */}
-                <div className="text-2xl md:text-3xl font-bold text-foreground">
-                  K{product.price.toLocaleString()}
+                {/* Price with discount display */}
+                <div className="space-y-1">
+                  <div className="text-2xl md:text-3xl font-bold text-foreground">
+                    K{product.price.toLocaleString()}
+                  </div>
+                  {product.original_price && product.original_price > product.price && (
+                    <div className="flex items-center gap-2">
+                      <span className="text-lg text-muted-foreground line-through">
+                        K{product.original_price.toLocaleString()}
+                      </span>
+                      {product.discount_percent && product.discount_percent > 0 && (
+                        <Badge variant="destructive" className="text-xs">
+                          -{product.discount_percent}% OFF
+                        </Badge>
+                      )}
+                    </div>
+                  )}
                 </div>
 
                 {/* Quantity Selector */}

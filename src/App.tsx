@@ -26,7 +26,12 @@ import VendorReturns from "./pages/VendorReturns";
 import VendorPromotions from "./pages/VendorPromotions";
 import VendorAnnouncements from "./pages/VendorAnnouncements";
 import VendorSettings from "./pages/VendorSettings";
+import VendorAuctions from "./pages/VendorAuctions";
+import VendorDiscounts from "./pages/VendorDiscounts";
+import VendorPromocodes from "./pages/VendorPromocodes";
 import VendorProtectedRoute from "./components/VendorProtectedRoute";
+import InfluencerTracking from "./pages/InfluencerTracking";
+import PromotionPage from "./pages/PromotionPage";
 import TermsConditions from "./pages/TermsConditions";
 import LogisticsLogin from "./pages/LogisticsLogin";
 import LogisticsDashboard from "./pages/LogisticsDashboard";
@@ -101,6 +106,8 @@ const App = () => (
               <Route path="/reviews" element={<Reviews />} />
               <Route path="/referral" element={<Referral />} />
               <Route path="/promotions" element={<Promotions />} />
+              <Route path="/promotions/:id" element={<PromotionPage />} />
+              <Route path="/influencer-tracking" element={<InfluencerTracking />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/vendor" element={
                 <VendorProtectedRoute>
@@ -145,6 +152,21 @@ const App = () => (
               <Route path="/vendor/settings" element={
                 <VendorProtectedRoute>
                   <VendorSettings />
+                </VendorProtectedRoute>
+              } />
+              <Route path="/vendor/auctions" element={
+                <VendorProtectedRoute>
+                  <VendorAuctions />
+                </VendorProtectedRoute>
+              } />
+              <Route path="/vendor/discounts" element={
+                <VendorProtectedRoute>
+                  <VendorDiscounts />
+                </VendorProtectedRoute>
+              } />
+              <Route path="/vendor/promocodes" element={
+                <VendorProtectedRoute>
+                  <VendorPromocodes />
                 </VendorProtectedRoute>
               } />
               <Route path="/logistics-login" element={<LogisticsLogin />} />
