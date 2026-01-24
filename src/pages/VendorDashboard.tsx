@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Upload, Plus, Store, Package, Settings, MapPin } from "lucide-react";
+import { Upload, Plus, Store, Package, Settings, Gavel, Percent, Tag } from "lucide-react";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 
@@ -102,6 +102,30 @@ const VendorDashboard = () => {
             >
               <Settings className="h-4 w-4 mr-2" />
               Settings
+            </Button>
+            <Button 
+              variant="outline"
+              onClick={() => navigate('/vendor/auctions')}
+              className="border-primary/20 hover:bg-primary/5"
+            >
+              <Gavel className="h-4 w-4 mr-2" />
+              Auctions
+            </Button>
+            <Button 
+              variant="outline"
+              onClick={() => navigate('/vendor/discounts')}
+              className="border-primary/20 hover:bg-primary/5"
+            >
+              <Percent className="h-4 w-4 mr-2" />
+              Discounts
+            </Button>
+            <Button 
+              variant="outline"
+              onClick={() => navigate('/vendor/promocodes')}
+              className="border-primary/20 hover:bg-primary/5"
+            >
+              <Tag className="h-4 w-4 mr-2" />
+              Promo Codes
             </Button>
           </div>
         </div>
